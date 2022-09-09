@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3808A56C28CBBD030072F9BF /* GameData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3808A56B28CBBD030072F9BF /* GameData.swift */; };
+		3808A56E28CBC2360072F9BF /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3808A56D28CBC2360072F9BF /* LoginViewController.swift */; };
 		38A6E3EA28C767C200709C7E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A6E3E928C767C200709C7E /* AppDelegate.swift */; };
 		38A6E3EC28C767C200709C7E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A6E3EB28C767C200709C7E /* SceneDelegate.swift */; };
 		38A6E3EE28C767C200709C7E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A6E3ED28C767C200709C7E /* ViewController.swift */; };
@@ -38,6 +40,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3808A56B28CBBD030072F9BF /* GameData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameData.swift; sourceTree = "<group>"; };
+		3808A56D28CBC2360072F9BF /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		38A6E3E628C767C200709C7E /* TicTacToe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TicTacToe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		38A6E3E928C767C200709C7E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		38A6E3EB28C767C200709C7E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -80,10 +84,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		38A6E3DD28C767C200709C7E = {
+		3808A56F28CBC44E0072F9BF /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				38A6E3ED28C767C200709C7E /* ViewController.swift */,
+				3808A56D28CBC2360072F9BF /* LoginViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		3808A57028CBC4610072F9BF /* Modal */ = {
 			isa = PBXGroup;
 			children = (
 				38A6E41B28C7822F00709C7E /* Player.swift */,
+			);
+			path = Modal;
+			sourceTree = "<group>";
+		};
+		38A6E3DD28C767C200709C7E = {
+			isa = PBXGroup;
+			children = (
 				38A6E3E828C767C200709C7E /* TicTacToe */,
 				38A6E3FF28C767C500709C7E /* TicTacToeTests */,
 				38A6E40928C767C500709C7E /* TicTacToeUITests */,
@@ -104,14 +124,16 @@
 		38A6E3E828C767C200709C7E /* TicTacToe */ = {
 			isa = PBXGroup;
 			children = (
+				3808A57028CBC4610072F9BF /* Modal */,
+				3808A56F28CBC44E0072F9BF /* ViewController */,
 				38A6E3E928C767C200709C7E /* AppDelegate.swift */,
 				38A6E3EB28C767C200709C7E /* SceneDelegate.swift */,
-				38A6E3ED28C767C200709C7E /* ViewController.swift */,
 				38A6E3EF28C767C200709C7E /* Main.storyboard */,
 				38A6E3F228C767C500709C7E /* Assets.xcassets */,
 				38A6E3F428C767C500709C7E /* LaunchScreen.storyboard */,
 				38A6E3F728C767C500709C7E /* Info.plist */,
 				38A6E41928C767F100709C7E /* GameLogic.swift */,
+				3808A56B28CBBD030072F9BF /* GameData.swift */,
 			);
 			path = TicTacToe;
 			sourceTree = "<group>";
@@ -264,7 +286,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3808A56E28CBC2360072F9BF /* LoginViewController.swift in Sources */,
 				38A6E3EE28C767C200709C7E /* ViewController.swift in Sources */,
+				3808A56C28CBBD030072F9BF /* GameData.swift in Sources */,
 				38A6E3EA28C767C200709C7E /* AppDelegate.swift in Sources */,
 				38A6E41A28C767F100709C7E /* GameLogic.swift in Sources */,
 				38A6E41C28C7822F00709C7E /* Player.swift in Sources */,

@@ -10,8 +10,18 @@ import UIKit
 class ViewController: UIViewController {
 
     
-    // TODO - SHOW WHO WON
+    // TODO -
+    // SHOW WHO WON
     // CLEAN UP
+    // IF THERE'S A TIE
+    // WHEN GAME IS OVER - BACK TO MENU OR START OVER
+    // WHEN SOMEONE WINS - YOU SHOULD NOT BE ABLE TO CLICK MORE BOXES
+    
+    // VG
+    // INPUT NAME FOR PLAYERS - line 64
+    // COUNT VICTORIES
+    // SEPARATE LOGIC FROM CONTROLLER
+    // PLAY AGAINST COMPUTER (RANDOM)
     
     @IBOutlet weak var img1: UIImageView!
     @IBOutlet weak var img2: UIImageView!
@@ -24,10 +34,13 @@ class ViewController: UIViewController {
     @IBOutlet weak var img9: UIImageView!
     @IBOutlet weak var textLabel: UILabel!
     
-    //var hasPlayed1 = false
+    var name1: String
+    var name2: String
     
-    var player1 = Player(image: UIImage(named: "circle")!, isPlaying: true, numberPlayed: 0, numbersPlayed: [0])
-    var player2 = Player(image: UIImage(named: "cross")!, isPlaying: false, numberPlayed: 0, numbersPlayed: [0])
+    var passed: Bool
+    
+    var player1 = Player(image: UIImage(named: "circle")!, isPlaying: true, numberPlayed: 0, numbersPlayed: [])
+    var player2 = Player(image: UIImage(named: "cross")!, isPlaying: false, numberPlayed: 0, numbersPlayed: [])
     
  
     // Array of arrays of winning numbers
@@ -43,15 +56,23 @@ class ViewController: UIViewController {
     let win7 = [4, 5, 6]
     let win8 = [7, 8, 9]
     
-    
-    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        textLabel.text = "Game on!"
+        
+        // SEND STUFF
+        
+//        if passed {
+//            textLabel.text = "Player 1's turn"
+//        }
+        
+       // textLabel.text = "Game on!"
         addToArray()
         
     }
+    
+   
     
     // Add winning numbercombinations to array
     func addToArray() {

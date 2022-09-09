@@ -15,6 +15,5 @@ struct Player {
     var numberPlayed: Int
     
     var numbersPlayed: Array<Int>
-
-    
 }
+
