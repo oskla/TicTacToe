@@ -48,7 +48,7 @@
                                 <buttonConfiguration key="configuration" style="filled" title="Start"/>
                                 <connections>
                                     <action selector="onPressStart:" destination="DN7-0t-ecp" eventType="touchUpInside" id="7xX-YR-kpM"/>
-                                    <segue destination="BYZ-38-t0r" kind="showDetail" identifier="loginToGameSegue" id="HcY-CA-KCN"/>
+                                    <segue destination="BYZ-38-t0r" kind="show" identifier="loginToGameSegue" id="HcY-CA-KCN"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TIC TAC TOE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IUo-W7-RHT">

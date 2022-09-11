@@ -11,14 +11,14 @@ class ViewController: UIViewController {
 
     
     // TODO -
-    // SHOW WHO WON
+    // SHOW WHO WON - DONE
     // CLEAN UP
-    // IF THERE'S A TIE
+    // IF THERE'S A TIE - DONE
     // WHEN GAME IS OVER - BACK TO MENU OR START OVER
-    // WHEN SOMEONE WINS - YOU SHOULD NOT BE ABLE TO CLICK MORE BOXES
+    // WHEN SOMEONE WINS - YOU SHOULD NOT BE ABLE TO CLICK MORE BOXES - DONE
     
     // VG
-    // INPUT NAME FOR PLAYERS - line 64
+    // INPUT NAME FOR PLAYERS - DONE
     // COUNT VICTORIES
     // SEPARATE LOGIC FROM CONTROLLER
     // PLAY AGAINST COMPUTER (RANDOM)
@@ -33,12 +33,14 @@ class ViewController: UIViewController {
     @IBOutlet weak var img8: UIImageView!
     @IBOutlet weak var img9: UIImageView!
     @IBOutlet weak var textLabel: UILabel!
-    
     @IBOutlet weak var playerLabel: UILabel!
+    
+    
+    let game = Game()
+    
     var name1: String = ""
     var name2: String = ""
     
-//    var passed: Bool
     
     var player1 = Player(image: UIImage(named: "circle")!, isPlaying: true, numberPlayed: 0, playerName: "", numbersPlayed: [])
     var player2 = Player(image: UIImage(named: "cross")!, isPlaying: false, numberPlayed: 0, playerName: "", numbersPlayed: [])
@@ -79,24 +81,15 @@ class ViewController: UIViewController {
     
     func checkNumberPlayed(inputImage: UIImageView) -> Int {
         switch inputImage {
-        case img1:
-            return 1
-        case img2:
-            return 2
-        case img3:
-            return 3
-        case img4:
-            return 4
-        case img5:
-            return 5
-        case img6:
-            return 6
-        case img7:
-            return 7
-        case img8:
-            return 8
-        case img9:
-            return 9
+        case img1: return 1
+        case img2: return 2
+        case img3: return 3
+        case img4: return 4
+        case img5: return 5
+        case img6: return 6
+        case img7: return 7
+        case img8: return 8
+        case img9: return 9
         default: return 0
         }
         
@@ -110,9 +103,26 @@ class ViewController: UIViewController {
                 disableTap()
                 return
             }
+            
         }
         
     }
+    
+    func checkTie() {
+        var totalNumbersPlayed: Array = player1.numbersPlayed + player2.numbersPlayed
+        var allNumbersPlayed = [1,2,3,4,5,6,7,8,9]
+        
+        totalNumbersPlayed.sort()
+        allNumbersPlayed.sort()
+        
+        if totalNumbersPlayed == allNumbersPlayed {
+            textLabel.text = "It's a tie!"
+            playerLabel.text = "Press reset"
+        }
+        
+    }
+        
+    
     func setPlayerNames(){
         player1.playerName = name1
         player2.playerName = name2
@@ -151,6 +161,7 @@ class ViewController: UIViewController {
             player2.isPlaying = true
             switchPlayerTxt(player: player2)
             checkWin(player: player1)
+            checkTie()
             return
         }
         
@@ -159,6 +170,8 @@ class ViewController: UIViewController {
             player2.isPlaying = false
             switchPlayerTxt(player: player1)
             checkWin(player: player2)
+            checkTie()
+            
             return
         }
         
