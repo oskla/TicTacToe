@@ -12,14 +12,18 @@ class ViewController: UIViewController {
     
     // TODO -
     // SHOW WHO WON - DONE
-    // CLEAN UP
     // IF THERE'S A TIE - DONE
-    // WHEN GAME IS OVER - BACK TO MENU OR START OVER
     // WHEN SOMEONE WINS - YOU SHOULD NOT BE ABLE TO CLICK MORE BOXES - DONE
     
     // VG
     // INPUT NAME FOR PLAYERS - DONE
-    // COUNT VICTORIES
+    // COUNT VICTORIES - DONE BUT CLEAN UP UI
+    
+    
+    
+    
+    // WHEN GAME IS OVER - BACK TO MENU OR START OVER
+    
     // SEPARATE LOGIC FROM CONTROLLER
     // PLAY AGAINST COMPUTER (RANDOM)
     
@@ -35,16 +39,22 @@ class ViewController: UIViewController {
     @IBOutlet weak var textLabel: UILabel!
     @IBOutlet weak var playerLabel: UILabel!
     
+    @IBOutlet weak var lblPlayer1Wins: UILabel!
+    @IBOutlet weak var lblPlayer2Wins: UILabel!
     
+    @IBOutlet weak var player2Name: UILabel!
+    @IBOutlet weak var player1Name: UILabel!
+   
     let game = Game()
     
     var name1: String = ""
     var name2: String = ""
     
     
-    var player1 = Player(image: UIImage(named: "circle")!, isPlaying: true, numberPlayed: 0, playerName: "", numbersPlayed: [])
-    var player2 = Player(image: UIImage(named: "cross")!, isPlaying: false, numberPlayed: 0, playerName: "", numbersPlayed: [])
+    var player1 = Player(image: UIImage(named: "circle")!, isPlaying: true, numberPlayed: 0, playerName: "", numbersPlayed: [], numberOfVictories: 0)
+    var player2 = Player(image: UIImage(named: "cross")!, isPlaying: false, numberPlayed: 0, playerName: "", numbersPlayed: [], numberOfVictories: 0)
     
+//    var playerNumberOfVictories = 0
  
     // Array of arrays of winning numbers
     var winningArrays = [[Int]]()
@@ -64,8 +74,10 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+       
         
-    setPlayerNames()
+        setNumberOfVictories()
+        setPlayerNames()
         textLabel.text = "Game on!"
         playerLabel.text = "Who's turn: \(player1.playerName)"
     addToArray()
@@ -94,12 +106,25 @@ class ViewController: UIViewController {
         }
         
     }
+    func numberOfVictoriesHandler(player: inout Player) {
+        player.numberOfVictories += 1
+
+    }
+    func setNumberOfVictories() {
     
-    func checkWin(player: Player){
+        
+        let player1NumberOfVictories = player1.numberOfVictories
+        let player2NumberOfVictories = player2.numberOfVictories
+        lblPlayer1Wins.text = String(player1NumberOfVictories)
+        lblPlayer2Wins.text = String(player2NumberOfVictories)
+    }
+        
+    func checkWin(player: inout Player){
         for i in 0...7 {
             if winningArrays[i].allSatisfy(player.numbersPlayed.contains) {
                 textLabel.text = "That's three in a row!"
                 playerLabel.text = "\(player.playerName) won!"
+                numberOfVictoriesHandler(player: &player)
                 disableTap()
                 return
             }
@@ -121,11 +146,14 @@ class ViewController: UIViewController {
         }
         
     }
-        
+    
+
     
     func setPlayerNames(){
         player1.playerName = name1
         player2.playerName = name2
+        player1Name.text = "\(player1.playerName):"
+        player2Name.text = "\(player2.playerName):"
         
     }
     
@@ -151,7 +179,7 @@ class ViewController: UIViewController {
     }
     
     func switchPlayerTxt(player: Player) {
-        playerLabel.text = "Who's turn: \(player.playerName)"
+        playerLabel.text = "Now playing: \(player.playerName)"
     }
     
     func switchTurn() {
@@ -160,8 +188,9 @@ class ViewController: UIViewController {
             player1.isPlaying = false
             player2.isPlaying = true
             switchPlayerTxt(player: player2)
-            checkWin(player: player1)
+            checkWin(player: &player1)
             checkTie()
+            setNumberOfVictories()
             return
         }
         
@@ -169,8 +198,9 @@ class ViewController: UIViewController {
             player1.isPlaying = true
             player2.isPlaying = false
             switchPlayerTxt(player: player1)
-            checkWin(player: player2)
+            checkWin(player: &player2)
             checkTie()
+            setNumberOfVictories()
             
             return
         }

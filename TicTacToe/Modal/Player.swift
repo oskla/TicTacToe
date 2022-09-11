@@ -15,5 +15,6 @@ struct Player {
     var numberPlayed: Int
     var playerName: String
     var numbersPlayed: Array<Int>
+    var numberOfVictories: Int
 }
 
