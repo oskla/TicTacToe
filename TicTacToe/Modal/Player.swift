@@ -13,7 +13,7 @@ struct Player {
     var image: UIImage
     var isPlaying: Bool
     var numberPlayed: Int
-    
+    var playerName: String
     var numbersPlayed: Array<Int>
 }
 

@@ -15,7 +15,6 @@ class LoginViewController: UIViewController{
     
     let loginToGameSegue = "loginToGameSegue"
     
-   
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,14 +38,21 @@ class LoginViewController: UIViewController{
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
        
+        if segue.identifier == loginToGameSegue {
+            if let destinationVC = segue.destination as? ViewController {
+                destinationVC.name1 = self.inputPlayer1.text ?? ""
+                destinationVC.name2 = self.inputPlayer2.text ?? ""
+            }
+        }
         
-        let destinationVC = segue.destination as! LoginViewController
+        
+//        let destinationVC = segue.destination as! LoginViewController
        
         
-        guard let name1 = inputPlayer1.text else {
-            destinationVC.passed = true
-            return
-        }
+//        guard let name1 = inputPlayer1.text else {
+//            destinationVC.passed = true
+//            return
+//        }
       
         
     }

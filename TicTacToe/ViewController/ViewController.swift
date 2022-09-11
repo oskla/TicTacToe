@@ -34,13 +34,14 @@ class ViewController: UIViewController {
     @IBOutlet weak var img9: UIImageView!
     @IBOutlet weak var textLabel: UILabel!
     
-    var name1: String
-    var name2: String
+    @IBOutlet weak var playerLabel: UILabel!
+    var name1: String = ""
+    var name2: String = ""
     
-    var passed: Bool
+//    var passed: Bool
     
-    var player1 = Player(image: UIImage(named: "circle")!, isPlaying: true, numberPlayed: 0, numbersPlayed: [])
-    var player2 = Player(image: UIImage(named: "cross")!, isPlaying: false, numberPlayed: 0, numbersPlayed: [])
+    var player1 = Player(image: UIImage(named: "circle")!, isPlaying: true, numberPlayed: 0, playerName: "", numbersPlayed: [])
+    var player2 = Player(image: UIImage(named: "cross")!, isPlaying: false, numberPlayed: 0, playerName: "", numbersPlayed: [])
     
  
     // Array of arrays of winning numbers
@@ -61,14 +62,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // SEND STUFF
         
-//        if passed {
-//            textLabel.text = "Player 1's turn"
-//        }
-        
-       // textLabel.text = "Game on!"
-        addToArray()
+    setPlayerNames()
+        textLabel.text = "Game on!"
+        playerLabel.text = "Who's turn: \(player1.playerName)"
+    addToArray()
         
     }
     
@@ -108,10 +106,16 @@ class ViewController: UIViewController {
         for i in 0...7 {
             if winningArrays[i].allSatisfy(player.numbersPlayed.contains) {
                 textLabel.text = "That's three in a row!"
-                print("\(winningArrays[i]) got lucky!")
+                playerLabel.text = "\(player.playerName) won!"
+                disableTap()
                 return
             }
         }
+        
+    }
+    func setPlayerNames(){
+        player1.playerName = name1
+        player2.playerName = name2
         
     }
     
@@ -136,21 +140,24 @@ class ViewController: UIViewController {
         }
     }
     
+    func switchPlayerTxt(player: Player) {
+        playerLabel.text = "Who's turn: \(player.playerName)"
+    }
+    
     func switchTurn() {
 
         if player1.isPlaying {
             player1.isPlaying = false
             player2.isPlaying = true
+            switchPlayerTxt(player: player2)
             checkWin(player: player1)
-            print(player1.numbersPlayed)
             return
         }
         
         if player2.isPlaying {
             player1.isPlaying = true
             player2.isPlaying = false
-            
-            print(player2.numbersPlayed)
+            switchPlayerTxt(player: player1)
             checkWin(player: player2)
             return
         }
@@ -158,45 +165,16 @@ class ViewController: UIViewController {
     }
     
 
-    @IBAction func onTap1(_ sender: Any) {
-    switchImage(inputImage: img1)
-
-    }
+    @IBAction func onTap1(_ sender: Any) { switchImage(inputImage: img1) }
+    @IBAction func onTap2(_ sender: Any) { switchImage(inputImage: img2) }
+    @IBAction func onTap3(_ sender: Any) { switchImage(inputImage: img3) }
+    @IBAction func onTap4(_ sender: Any) { switchImage(inputImage: img4) }
+    @IBAction func onTap5(_ sender: Any) { switchImage(inputImage: img5) }
+    @IBAction func onTap6(_ sender: Any) { switchImage(inputImage: img6) }
+    @IBAction func onTap7(_ sender: Any) { switchImage(inputImage: img7) }
+    @IBAction func onTap8(_ sender: Any) { switchImage(inputImage: img8) }
+    @IBAction func onTap9(_ sender: Any) { switchImage(inputImage: img9) }
     
-    @IBAction func onTap2(_ sender: Any) {
-        switchImage(inputImage: img2)
-        
-    }
-    
-    @IBAction func onTap3(_ sender: Any) {
-        switchImage(inputImage: img3)
-       
-    }
-    
-    @IBAction func onTap4(_ sender: Any) {
-        switchImage(inputImage: img4)
-       
-    }
-    
-    @IBAction func onTap5(_ sender: Any) {
-        switchImage(inputImage: img5)
-        
-    }
-    @IBAction func onTap6(_ sender: Any) {
-        switchImage(inputImage: img6)
-        
-    }
-    @IBAction func onTap7(_ sender: Any) {
-        switchImage(inputImage: img7)
-        
-    }
-    @IBAction func onTap8(_ sender: Any) {
-        switchImage(inputImage: img8)
-        
-    }
-    @IBAction func onTap9(_ sender: Any) {
-        switchImage(inputImage: img9)
-    }
     @IBAction func onReset(_ sender: Any) {
         
         player1.numbersPlayed.removeAll()
@@ -230,6 +208,18 @@ class ViewController: UIViewController {
         img7.isUserInteractionEnabled = true
         img8.isUserInteractionEnabled = true
         img9.isUserInteractionEnabled = true
+    }
+    
+    func disableTap() {
+        img1.isUserInteractionEnabled = false
+        img2.isUserInteractionEnabled = false
+        img3.isUserInteractionEnabled = false
+        img4.isUserInteractionEnabled = false
+        img5.isUserInteractionEnabled = false
+        img6.isUserInteractionEnabled = false
+        img7.isUserInteractionEnabled = false
+        img8.isUserInteractionEnabled = false
+        img9.isUserInteractionEnabled = false
     }
     }
     
