@@ -50,11 +50,12 @@ class ViewController: UIViewController {
     var name1: String = ""
     var name2: String = ""
     
+    var totalNumbersPlayed: Array<Int> = []
     
     var player1 = Player(image: UIImage(named: "circle")!, isPlaying: true, numberPlayed: 0, playerName: "", numbersPlayed: [], numberOfVictories: 0)
     var player2 = Player(image: UIImage(named: "cross")!, isPlaying: false, numberPlayed: 0, playerName: "", numbersPlayed: [], numberOfVictories: 0)
     
-//    var playerNumberOfVictories = 0
+
  
     // Array of arrays of winning numbers
     var winningArrays = [[Int]]()
@@ -134,7 +135,7 @@ class ViewController: UIViewController {
     }
     
     func checkTie() {
-        var totalNumbersPlayed: Array = player1.numbersPlayed + player2.numbersPlayed
+       totalNumbersPlayed = player1.numbersPlayed + player2.numbersPlayed
         var allNumbersPlayed = [1,2,3,4,5,6,7,8,9]
         
         totalNumbersPlayed.sort()

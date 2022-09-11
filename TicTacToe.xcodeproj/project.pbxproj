@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3808A56E28CBC2360072F9BF /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3808A56D28CBC2360072F9BF /* LoginViewController.swift */; };
 		380B82DA28CDF39B0050DBA1 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380B82D928CDF39B0050DBA1 /* Game.swift */; };
+		380B82DE28CE58B40050DBA1 /* RandomPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380B82DD28CE58B40050DBA1 /* RandomPlayer.swift */; };
 		38A6E3EA28C767C200709C7E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A6E3E928C767C200709C7E /* AppDelegate.swift */; };
 		38A6E3EC28C767C200709C7E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A6E3EB28C767C200709C7E /* SceneDelegate.swift */; };
 		38A6E3EE28C767C200709C7E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A6E3ED28C767C200709C7E /* ViewController.swift */; };
@@ -41,6 +42,7 @@
 /* Begin PBXFileReference section */
 		3808A56D28CBC2360072F9BF /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		380B82D928CDF39B0050DBA1 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		380B82DD28CE58B40050DBA1 /* RandomPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomPlayer.swift; sourceTree = "<group>"; };
 		38A6E3E628C767C200709C7E /* TicTacToe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TicTacToe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		38A6E3E928C767C200709C7E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		38A6E3EB28C767C200709C7E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 			children = (
 				38A6E41B28C7822F00709C7E /* Player.swift */,
 				380B82D928CDF39B0050DBA1 /* Game.swift */,
+				380B82DD28CE58B40050DBA1 /* RandomPlayer.swift */,
 			);
 			path = Modal;
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 				38A6E3EA28C767C200709C7E /* AppDelegate.swift in Sources */,
 				38A6E41C28C7822F00709C7E /* Player.swift in Sources */,
 				38A6E3EC28C767C200709C7E /* SceneDelegate.swift in Sources */,
+				380B82DE28CE58B40050DBA1 /* RandomPlayer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
