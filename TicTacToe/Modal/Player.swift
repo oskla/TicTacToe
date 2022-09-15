@@ -10,7 +10,7 @@ import UIKit
 
 struct Player {
     
-    var viewController = ViewController()
+   // var viewController = ViewController()
     
     var image: UIImage
     var isPlaying: Bool
@@ -19,17 +19,17 @@ struct Player {
     var numbersPlayed: Array<Int>
     var numberOfVictories: Int
     
-    var isRandom: Bool
+//    var isRandom: Bool
     
-    func playRandom() {
-        if isRandom == true {
-            let totalNumbersPlayed = viewController.totalNumbersPlayed
-            if let randomElement = totalNumbersPlayed.randomElement() {
-                print(randomElement)
-            }
-        }
-       
-    }
+//    func playRandom() {
+//        if isRandom == true {
+//            let totalNumbersPlayed = viewController.totalNumbersPlayed
+//            if let randomElement = totalNumbersPlayed.randomElement() {
+//                print(randomElement)
+//            }
+//        }
+//
+//    }
     
 }
 
