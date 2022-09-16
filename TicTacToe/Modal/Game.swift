@@ -25,6 +25,7 @@ class Game {
     
     var playerWon: String?
     var ended: Bool?
+    var isTie: Bool?
     var totalNumbersPlayed: Array<Int> = []
  //   var currentGameStatus = STATUS_GAME_INACTIVE
     
@@ -39,7 +40,6 @@ class Game {
     let win8 = [7, 8, 9]
     
     func startGame() {
-       // makeMove(player: &player1)
         addToArray()
     }
 
@@ -47,44 +47,21 @@ class Game {
         winningArrays = [win1,win2,win3,win4,win5,win6,win7,win8]
     }
     
-//    func makeMove(player: inout Player) {
-//        if player.isPlaying == true {
-//
-//            print("Move made by \(player.playerName)")
-//            checkWin(player: player)
-//           // checkTie()
-//
-//        } else {
-//
-//            print("Move made by \(player.playerName)")
-//            checkWin(player: player)
-//        //    checkTie()
-//
-//
-//        }
-//    }
-    
     func switchTurn()  {
-        
-       
-        
         if player1.isPlaying == true {
             player1.isPlaying = false
             player2.isPlaying = true
-            //makeMove(player: &player1)
-            
-          
             checkWin(player: &player1)
+            checkTie()
           
             print("switching turn from player 1 to player 2")
           return
         } else {
             player1.isPlaying = true
             player2.isPlaying = false
-           // makeMove(player: &player2)
-        
+
             checkWin(player: &player2)
-         
+            checkTie()
             print("switching turn from player 2 to player 1")
             
         }
@@ -94,10 +71,9 @@ class Game {
     func checkWin(player: inout Player) {
         for i in 0...7 {
             if winningArrays[i].allSatisfy(player.numbersPlayed.contains) {
-                print("Victory for \(player.playerName)")
-                //setNumberOfVictories(player: player)
-                print("setting \(player.playerName) as winner")
+                setNumberOfVictories(player: &player)
                 playerWon = player.playerName
+                player.won = true
                 ended = true
                 return
             }
@@ -108,35 +84,20 @@ class Game {
     func checkTie() {
        
         let allNumbersPlayed = [1,2,3,4,5,6,7,8,9]
-        
         totalNumbersPlayed = player1.numbersPlayed + player2.numbersPlayed
-        
         totalNumbersPlayed.sort()
         
         if totalNumbersPlayed == allNumbersPlayed {
-            print("it's a tie!!")
+            isTie = true
         }
         
     }
     
-    func setNumberOfVictories(player: Player) {
+    func setNumberOfVictories(player: inout Player) {
   
-//        if player.playerName == player1.playerName {
-//            player1.numberOfVictories += 1
-//        } else if player.playerName == player2.playerName {
-//            player2.numberOfVictories += 1
-//        }
-//
-//        switch playerNumber {
-//        case 1:
-//            self.player1.numberOfVictories += 1
-//        case 2:
-//            self.player2.numberOfVictories += 2
-//        default: return
-//        }
+        player.numberOfVictories += 1
         
         
-//        print("\(player) has won \(result) times")
     }
     
 }

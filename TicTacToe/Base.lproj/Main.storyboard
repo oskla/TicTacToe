@@ -304,11 +304,11 @@
                         <outlet property="img8" destination="rXO-wN-yIj" id="gar-nc-nbq"/>
                         <outlet property="img9" destination="MC4-kS-K3Z" id="2LA-jv-Skg"/>
                         <outlet property="lblMain" destination="cNe-86-WKY" id="4Nf-a9-eU2"/>
+                        <outlet property="lblPlayer1Name" destination="tbl-rb-2Wk" id="DsI-Gf-bxy"/>
                         <outlet property="lblPlayer1Wins" destination="kHa-OG-FQi" id="gYp-0q-dXi"/>
+                        <outlet property="lblPlayer2Name" destination="sx2-BT-Zaq" id="CIM-MI-16s"/>
                         <outlet property="lblPlayer2Wins" destination="wFP-iu-hyw" id="Sfd-pv-hVQ"/>
                         <outlet property="lblPlayerTurn" destination="aMB-Ub-6zK" id="Rhr-Bm-bDy"/>
-                        <outlet property="player1Name" destination="tbl-rb-2Wk" id="DsI-Gf-bxy"/>
-                        <outlet property="player2Name" destination="sx2-BT-Zaq" id="CIM-MI-16s"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

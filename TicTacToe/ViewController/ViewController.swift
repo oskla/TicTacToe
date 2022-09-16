@@ -42,8 +42,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var lblPlayer1Wins: UILabel!
     @IBOutlet weak var lblPlayer2Wins: UILabel!
     
-    @IBOutlet weak var player2Name: UILabel!
-    @IBOutlet weak var player1Name: UILabel!
+    @IBOutlet weak var lblPlayer2Name: UILabel!
+    @IBOutlet weak var lblPlayer1Name: UILabel!
    
     let game = Game(
         player1: Player(image: UIImage(named: "circle")!, isPlaying: true, numberPlayed: 0, playerName: "Kalle1", numbersPlayed: [], numberOfVictories: 0, won: false),
@@ -59,7 +59,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
+        setPlayerNames()
         game.addToArray()
         updateUI()
     }
@@ -80,24 +80,18 @@ class ViewController: UIViewController {
         }
         
     }
-
-    
-    
-//    func setNumberOfVictories() {
-//
-//        let player1NumberOfVictories = player1.numberOfVictories
-//        let player2NumberOfVictories = player2.numberOfVictories
-//        lblPlayer1Wins.text = String(player1NumberOfVictories)
-//        lblPlayer2Wins.text = String(player2NumberOfVictories)
-//    }
         
+    func setPlayerNames() {
+        game.player1.playerName = name1
+        game.player2.playerName = name2
+    }
+    
 
     func updateUI() {
     
-        switchPlayerLbl()
-        switchMainLbl()
-        
-       
+        setPlayerLbl()
+        setMainLbl()
+        setVictoriesLbl()
         
         guard let gameEnded = game.ended else { return }
            if gameEnded == true {
@@ -105,8 +99,6 @@ class ViewController: UIViewController {
                disableTap()
                
            }
-           
-        
     }
     
 
@@ -133,7 +125,7 @@ class ViewController: UIViewController {
      }
     }
     
-    func switchMainLbl() {
+    func setMainLbl() {
         if game.playerWon == game.player1.playerName {
             lblMain.text = "\(game.player1.playerName) won!"
         } else if game.playerWon == game.player2.playerName{
@@ -141,18 +133,29 @@ class ViewController: UIViewController {
         } else if !game.player1.won || !game.player2.won {
             lblMain.text = "Let's play!"
         }
+        
+        if game.isTie ?? false {
+            lblMain.text = "It's a tie!"
+            game.isTie = false
+        }
     }
     
-    func switchPlayerLbl() {
-       
-     print("Checking who won")
+    func setVictoriesLbl() {
+        lblPlayer1Wins.text = String(game.player1.numberOfVictories)
+        lblPlayer2Wins.text = String(game.player2.numberOfVictories)
+        lblPlayer1Name.text = game.player1.playerName
+        lblPlayer2Name.text = game.player2.playerName
+
+    }
+    
+    func setPlayerLbl() {
        if game.player1.isPlaying {
            lblPlayerTurn.text = "\(game.player1.playerName) turn to play"
        } else {
            lblPlayerTurn.text = "\(game.player2.playerName) turn to play"
        }
         
-        if game.player1.won || game.player2.won {
+        if game.player1.won || game.player2.won || game.isTie ?? false {
             lblPlayerTurn.text = "Press reset to start new game"
             game.player2.won = false
             game.player1.won = false
@@ -182,8 +185,6 @@ class ViewController: UIViewController {
     }
     
     func resetImages() {
-        
-        
         img1.image = UIImage(named: "box")
         img2.image = UIImage(named: "box")
         img3.image = UIImage(named: "box")
@@ -204,8 +205,8 @@ class ViewController: UIViewController {
         img8.isUserInteractionEnabled = true
         img9.isUserInteractionEnabled = true
         
-        switchMainLbl()
-        switchPlayerLbl()
+        setMainLbl()
+        setPlayerLbl()
     }
     
     func disableTap() {
