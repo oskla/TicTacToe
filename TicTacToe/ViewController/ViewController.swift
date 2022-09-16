@@ -36,8 +36,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var img7: UIImageView!
     @IBOutlet weak var img8: UIImageView!
     @IBOutlet weak var img9: UIImageView!
-    @IBOutlet weak var textLabel: UILabel!
-    @IBOutlet weak var playerLabel: UILabel!
+    @IBOutlet weak var lblMain: UILabel!
+    @IBOutlet weak var lblPlayerTurn: UILabel!
     
     @IBOutlet weak var lblPlayer1Wins: UILabel!
     @IBOutlet weak var lblPlayer2Wins: UILabel!
@@ -46,20 +46,22 @@ class ViewController: UIViewController {
     @IBOutlet weak var player1Name: UILabel!
    
     let game = Game(
-        player1: Player(image: UIImage(named: "circle")!, isPlaying: true, numberPlayed: 0, playerName: "Kalle", numbersPlayed: [], numberOfVictories: 0),
-        player2: Player(image: UIImage(named: "cross")!, isPlaying: false, numberPlayed: 0, playerName: "Pelle", numbersPlayed: [], numberOfVictories: 0)
+        player1: Player(image: UIImage(named: "circle")!, isPlaying: true, numberPlayed: 0, playerName: "Kalle1", numbersPlayed: [], numberOfVictories: 0, won: false),
+        player2: Player(image: UIImage(named: "cross")!, isPlaying: false, numberPlayed: 0, playerName: "Pelle2", numbersPlayed: [], numberOfVictories: 0, won: false)
         )
     
     var name1: String = ""
     var name2: String = ""
+    
     
     var totalNumbersPlayed: Array<Int> = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        game.addToArray()
         
+        game.addToArray()
+        updateUI()
     }
     
     
@@ -89,43 +91,23 @@ class ViewController: UIViewController {
 //        lblPlayer2Wins.text = String(player2NumberOfVictories)
 //    }
         
-//    func checkWin(player: inout Player){
-//        for i in 0...7 {
-//            if winningArrays[i].allSatisfy(player.numbersPlayed.contains) {
-//                textLabel.text = "That's three in a row!"
-//                playerLabel.text = "\(player.playerName) won!"
-//                numberOfVictoriesHandler(player: &player)
-//                disableTap()
-//                return
-//            }
-//
-//        }
-//
-//    }
-    
-//    func checkTie() {
-//       totalNumbersPlayed = player1.numbersPlayed + player2.numbersPlayed
-//        var allNumbersPlayed = [1,2,3,4,5,6,7,8,9]
-//
-//        totalNumbersPlayed.sort()
-//        allNumbersPlayed.sort()
-//
-//        if totalNumbersPlayed == allNumbersPlayed {
-//            textLabel.text = "It's a tie!"
-//            playerLabel.text = "Press reset"
-//        }
-//
-//    }
-    
 
+    func updateUI() {
     
-//    func setPlayerNames(){
-//        player1.playerName = name1
-//        player2.playerName = name2
-//        player1Name.text = "\(player1.playerName):"
-//        player2Name.text = "\(player2.playerName):"
-//        
-//    }
+        switchPlayerLbl()
+        switchMainLbl()
+        
+       
+        
+        guard let gameEnded = game.ended else { return }
+           if gameEnded == true {
+               game.ended = false
+               disableTap()
+               
+           }
+           
+        
+    }
     
 
     func switchImage(inputImage: UIImageView) {
@@ -136,53 +118,48 @@ class ViewController: UIViewController {
             inputImage.isUserInteractionEnabled = false // Can't press same img again
             let player1Number = checkNumberPlayed(inputImage: inputImage) // What number did you press?
             game.player1.numbersPlayed.append(player1Number) // Add played number to array
-            print(game.player1.numbersPlayed)
-          //  game.checkWin(player: game.player1)
             game.switchTurn()
-            return
-        }
-        if game.player2.isPlaying {
+            updateUI()
+            
+        } else if game.player2.isPlaying {
             inputImage.image = game.player2.image
             inputImage.isUserInteractionEnabled = false // Can't press same img again
             let player2Number = checkNumberPlayed(inputImage: inputImage) // What number did you press?
             game.player2.numbersPlayed.append(player2Number) // Add played number to array
-           // game.checkWin(player: game.player2)
-            print(game.player2.numbersPlayed)
             game.switchTurn()
+            updateUI()
+            
             return
      }
     }
     
-//    func switchPlayerTxt(player: Player) {
-//        playerLabel.text = "Now playing: \(player.playerName)"
-//    }
+    func switchMainLbl() {
+        if game.playerWon == game.player1.playerName {
+            lblMain.text = "\(game.player1.playerName) won!"
+        } else if game.playerWon == game.player2.playerName{
+            lblMain.text = "\(game.player2.playerName) won!"
+        } else if !game.player1.won || !game.player2.won {
+            lblMain.text = "Let's play!"
+        }
+    }
     
-//    func switchTurn() {
-//
-//        if player1.isPlaying {
-//            player1.isPlaying = false
-//            player2.isPlaying = true
-//            switchPlayerTxt(player: player2)
-//            checkWin(player: &player1)
-//            checkTie()
-//            setNumberOfVictories()
-//            return
-//        }
-//
-//        if player2.isPlaying {
-//            player1.isPlaying = true
-//            player2.isPlaying = false
-//            switchPlayerTxt(player: player1)
-//            checkWin(player: &player2)
-//            checkTie()
-//            setNumberOfVictories()
-//
-//            return
-//        }
-//
-//    }
-    
+    func switchPlayerLbl() {
+       
+     print("Checking who won")
+       if game.player1.isPlaying {
+           lblPlayerTurn.text = "\(game.player1.playerName) turn to play"
+       } else {
+           lblPlayerTurn.text = "\(game.player2.playerName) turn to play"
+       }
+        
+        if game.player1.won || game.player2.won {
+            lblPlayerTurn.text = "Press reset to start new game"
+            game.player2.won = false
+            game.player1.won = false
+        }
 
+   }
+    
     @IBAction func onTap1(_ sender: Any) { switchImage(inputImage: img1) }
     @IBAction func onTap2(_ sender: Any) { switchImage(inputImage: img2) }
     @IBAction func onTap3(_ sender: Any) { switchImage(inputImage: img3) }
@@ -199,14 +176,14 @@ class ViewController: UIViewController {
         game.player2.numbersPlayed.removeAll()
         game.player1.isPlaying = true
         game.player2.isPlaying = false
-//        
-       resetImages()
-//   
-//        textLabel.text = "Game on!"
+      
+        resetImages()
 
     }
     
     func resetImages() {
+        
+        
         img1.image = UIImage(named: "box")
         img2.image = UIImage(named: "box")
         img3.image = UIImage(named: "box")
@@ -226,9 +203,13 @@ class ViewController: UIViewController {
         img7.isUserInteractionEnabled = true
         img8.isUserInteractionEnabled = true
         img9.isUserInteractionEnabled = true
+        
+        switchMainLbl()
+        switchPlayerLbl()
     }
     
     func disableTap() {
+      
         img1.isUserInteractionEnabled = false
         img2.isUserInteractionEnabled = false
         img3.isUserInteractionEnabled = false

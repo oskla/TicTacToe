@@ -11,14 +11,8 @@ import UIKit
 
 
 class Game {
-    
-    let STATUS_GAME_INACTIVE = -1
-    let STATUS_GAME_ACTIVE = 0
-    let STATUS_GAME_DRAW = 1
-    let STATUS_GAME_PLAYER1WIN = 2
-    let STATUS_GAME_PLAYER2WIN = 3
-    
 
+   
     var winningArrays = [[Int]]()
     
     var player1: Player
@@ -27,9 +21,10 @@ class Game {
     init(player1: Player, player2: Player) {
         self.player1 = player1
         self.player2 = player2
-       // self.currentGameStatus = STATUS_GAME_ACTIVE
     }
     
+    var playerWon: String?
+    var ended: Bool?
     var totalNumbersPlayed: Array<Int> = []
  //   var currentGameStatus = STATUS_GAME_INACTIVE
     
@@ -44,7 +39,7 @@ class Game {
     let win8 = [7, 8, 9]
     
     func startGame() {
-        makeMove(player: &player1)
+       // makeMove(player: &player1)
         addToArray()
     }
 
@@ -52,48 +47,62 @@ class Game {
         winningArrays = [win1,win2,win3,win4,win5,win6,win7,win8]
     }
     
-    func makeMove(player: inout Player) {
-        if player.isPlaying == true {
-
-            print("Move made by \(player.playerName)")
-            checkWin(player: player)
-           // checkTie()
-
-        } else {
-
-            print("Move made by \(player.playerName)")
-            checkWin(player: player)
-        //    checkTie()
-            
-            
-        }
-    }
+//    func makeMove(player: inout Player) {
+//        if player.isPlaying == true {
+//
+//            print("Move made by \(player.playerName)")
+//            checkWin(player: player)
+//           // checkTie()
+//
+//        } else {
+//
+//            print("Move made by \(player.playerName)")
+//            checkWin(player: player)
+//        //    checkTie()
+//
+//
+//        }
+//    }
     
-    func switchTurn() {
+    func switchTurn()  {
+        
+       
+        
         if player1.isPlaying == true {
             player1.isPlaying = false
             player2.isPlaying = true
-            makeMove(player: &player1)
-         
+            //makeMove(player: &player1)
+            
+          
+            checkWin(player: &player1)
+          
             print("switching turn from player 1 to player 2")
-            return
-        } else if player2.isPlaying {
+          return
+        } else {
             player1.isPlaying = true
             player2.isPlaying = false
-            makeMove(player: &player2)
-
+           // makeMove(player: &player2)
+        
+            checkWin(player: &player2)
+         
             print("switching turn from player 2 to player 1")
-            return
+            
         }
+        return
     }
     
-    func checkWin(player: Player) {
+    func checkWin(player: inout Player) {
         for i in 0...7 {
             if winningArrays[i].allSatisfy(player.numbersPlayed.contains) {
                 print("Victory for \(player.playerName)")
                 //setNumberOfVictories(player: player)
+                print("setting \(player.playerName) as winner")
+                playerWon = player.playerName
+                ended = true
+                return
             }
         }
+        return
     }
     
     func checkTie() {
