@@ -19,6 +19,7 @@ struct Player {
     var numbersPlayed: Array<Int>
     var numberOfVictories: Int
     var won: Bool
+    var isComputer: Bool
     
 //    var isRandom: Bool
     

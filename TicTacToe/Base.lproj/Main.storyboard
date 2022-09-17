@@ -97,7 +97,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="box" translatesAutoresizingMaskIntoConstraints="NO" id="Ql5-AR-mSc">
+                            <imageView opaque="NO" clipsSubviews="YES" tag="5" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="box" translatesAutoresizingMaskIntoConstraints="NO" id="Ql5-AR-mSc">
                                 <rect key="frame" x="144.5" y="358.5" width="125" height="125"/>
                                 <gestureRecognizers/>
                                 <constraints>
@@ -109,7 +109,7 @@
                                     <outletCollection property="gestureRecognizers" destination="tHg-0l-dqA" appends="YES" id="Krm-iE-62D"/>
                                 </connections>
                             </imageView>
-                            <imageView opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="box" highlightedImage="box" translatesAutoresizingMaskIntoConstraints="NO" id="9sO-cR-1uk">
+                            <imageView opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="box" highlightedImage="box" translatesAutoresizingMaskIntoConstraints="NO" id="9sO-cR-1uk">
                                 <rect key="frame" x="144.5" y="231.5" width="125" height="125"/>
                                 <gestureRecognizers/>
                                 <constraints>
@@ -125,7 +125,7 @@
                                     <outletCollection property="gestureRecognizers" destination="mDD-Xf-LRI" appends="YES" id="SaF-CQ-1LQ"/>
                                 </connections>
                             </imageView>
-                            <imageView opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="box" translatesAutoresizingMaskIntoConstraints="NO" id="rXO-wN-yIj">
+                            <imageView opaque="NO" clipsSubviews="YES" tag="8" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="box" translatesAutoresizingMaskIntoConstraints="NO" id="rXO-wN-yIj">
                                 <rect key="frame" x="144.5" y="485.5" width="125" height="125"/>
                                 <gestureRecognizers/>
                                 <constraints>
@@ -136,7 +136,7 @@
                                     <outletCollection property="gestureRecognizers" destination="3AN-HG-0Sj" appends="YES" id="LAw-p1-mpy"/>
                                 </connections>
                             </imageView>
-                            <imageView opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="box" translatesAutoresizingMaskIntoConstraints="NO" id="xMe-4d-HLP">
+                            <imageView opaque="NO" clipsSubviews="YES" tag="4" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="box" translatesAutoresizingMaskIntoConstraints="NO" id="xMe-4d-HLP">
                                 <rect key="frame" x="17.5" y="358.5" width="125" height="125"/>
                                 <gestureRecognizers/>
                                 <constraints>
@@ -147,7 +147,7 @@
                                     <outletCollection property="gestureRecognizers" destination="o4X-77-Z4v" appends="YES" id="1um-1r-CUA"/>
                                 </connections>
                             </imageView>
-                            <imageView opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="box" translatesAutoresizingMaskIntoConstraints="NO" id="fGU-oK-hEP">
+                            <imageView opaque="NO" clipsSubviews="YES" tag="6" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="box" translatesAutoresizingMaskIntoConstraints="NO" id="fGU-oK-hEP">
                                 <rect key="frame" x="271.5" y="358.5" width="125" height="125"/>
                                 <gestureRecognizers/>
                                 <constraints>
@@ -158,7 +158,7 @@
                                     <outletCollection property="gestureRecognizers" destination="mi5-zc-AeC" appends="YES" id="X8G-Ns-t3y"/>
                                 </connections>
                             </imageView>
-                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="box" translatesAutoresizingMaskIntoConstraints="NO" id="eAh-OC-89l">
+                            <imageView clipsSubviews="YES" tag="3" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="box" translatesAutoresizingMaskIntoConstraints="NO" id="eAh-OC-89l">
                                 <rect key="frame" x="271.5" y="231.5" width="125" height="125"/>
                                 <gestureRecognizers/>
                                 <constraints>
@@ -170,7 +170,7 @@
                                     <outletCollection property="gestureRecognizers" destination="Aoo-17-S82" appends="YES" id="DVA-3x-A7h"/>
                                 </connections>
                             </imageView>
-                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="box" translatesAutoresizingMaskIntoConstraints="NO" id="tIV-OF-agE">
+                            <imageView clipsSubviews="YES" tag="1" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="box" translatesAutoresizingMaskIntoConstraints="NO" id="tIV-OF-agE">
                                 <rect key="frame" x="17.5" y="231.5" width="125" height="125"/>
                                 <gestureRecognizers/>
                                 <constraints>
@@ -182,7 +182,7 @@
                                     <outletCollection property="gestureRecognizers" destination="caE-Yq-Uea" appends="YES" id="73T-3V-TDU"/>
                                 </connections>
                             </imageView>
-                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="box" translatesAutoresizingMaskIntoConstraints="NO" id="dJs-h9-Xq2">
+                            <imageView clipsSubviews="YES" tag="7" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="box" translatesAutoresizingMaskIntoConstraints="NO" id="dJs-h9-Xq2">
                                 <rect key="frame" x="17.5" y="485.5" width="125" height="125"/>
                                 <gestureRecognizers/>
                                 <constraints>
@@ -193,7 +193,7 @@
                                     <outletCollection property="gestureRecognizers" destination="mkD-nR-MUl" appends="YES" id="bW4-so-Zli"/>
                                 </connections>
                             </imageView>
-                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="box" translatesAutoresizingMaskIntoConstraints="NO" id="MC4-kS-K3Z">
+                            <imageView clipsSubviews="YES" tag="9" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="box" translatesAutoresizingMaskIntoConstraints="NO" id="MC4-kS-K3Z">
                                 <rect key="frame" x="271.5" y="485.5" width="125" height="125"/>
                                 <gestureRecognizers/>
                                 <constraints>

@@ -10,22 +10,7 @@ import UIKit
 class ViewController: UIViewController {
 
     
-    // TODO -
-    // SHOW WHO WON - DONE
-    // IF THERE'S A TIE - DONE
-    // WHEN SOMEONE WINS - YOU SHOULD NOT BE ABLE TO CLICK MORE BOXES - DONE
-    
-    // VG
-    // INPUT NAME FOR PLAYERS - DONE
-    // COUNT VICTORIES - DONE BUT CLEAN UP UI
-    
-    
-    
-    
-    // WHEN GAME IS OVER - BACK TO MENU OR START OVER
-    
-    // SEPARATE LOGIC FROM CONTROLLER
-    // PLAY AGAINST COMPUTER (RANDOM)
+   // TODO - How to not make move after win when player2 = computer
     
     @IBOutlet weak var img1: UIImageView!
     @IBOutlet weak var img2: UIImageView!
@@ -46,24 +31,56 @@ class ViewController: UIViewController {
     @IBOutlet weak var lblPlayer1Name: UILabel!
    
     let game = Game(
-        player1: Player(image: UIImage(named: "circle")!, isPlaying: true, numberPlayed: 0, playerName: "Kalle1", numbersPlayed: [], numberOfVictories: 0, won: false),
-        player2: Player(image: UIImage(named: "cross")!, isPlaying: false, numberPlayed: 0, playerName: "Pelle2", numbersPlayed: [], numberOfVictories: 0, won: false)
+        player1: Player(image: UIImage(named: "circle")!, isPlaying: true, numberPlayed: 0, playerName: "Kalle1", numbersPlayed: [], numberOfVictories: 0, won: false, isComputer: false),
+        player2: Player(image: UIImage(named: "cross")!, isPlaying: false, numberPlayed: 0, playerName: "Pelle2", numbersPlayed: [], numberOfVictories: 0, won: false, isComputer: true)
         )
     
     var name1: String = ""
     var name2: String = ""
-    
     
     var totalNumbersPlayed: Array<Int> = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+
         setPlayerNames()
         game.addToArray()
         updateUI()
+      //  makeRandomMove()
+    }
+
+    func makeRandomMove() {
+        game.checkWin(player: &game.player1)
+        if game.player2.isComputer == true && game.ended != true {
+            if let randomElement = game.numbersLeftToPlay.randomElement() {
+                // Call performTask after a delay of 1 second
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
+                    switchImage(inputImage: self.numberToImageView(inputNumber: randomElement))
+                }
+
+                
+            }
+        }
+        
+       
     }
     
+    func numberToImageView(inputNumber: Int) -> UIImageView {
+        switch inputNumber {
+        case 1: return img1
+        case 2: return img2
+        case 3: return img3
+        case 4: return img4
+        case 5: return img5
+        case 6: return img6
+        case 7: return img7
+        case 8: return img8
+        case 9: return img9
+        default:
+            return img1
+        }
+    }
     
     func checkNumberPlayed(inputImage: UIImageView) -> Int {
         switch inputImage {
@@ -78,17 +95,14 @@ class ViewController: UIViewController {
         case img9: return 9
         default: return 0
         }
-        
     }
         
     func setPlayerNames() {
         game.player1.playerName = name1
         game.player2.playerName = name2
     }
-    
 
     func updateUI() {
-    
         setPlayerLbl()
         setMainLbl()
         setVictoriesLbl()
@@ -109,14 +123,20 @@ class ViewController: UIViewController {
             inputImage.image = game.player1.image
             inputImage.isUserInteractionEnabled = false // Can't press same img again
             let player1Number = checkNumberPlayed(inputImage: inputImage) // What number did you press?
+            game.player1.numberPlayed = player1Number // Set last played number
             game.player1.numbersPlayed.append(player1Number) // Add played number to array
             game.switchTurn()
             updateUI()
+            makeRandomMove()
+            return
+            
             
         } else if game.player2.isPlaying {
+            
             inputImage.image = game.player2.image
             inputImage.isUserInteractionEnabled = false // Can't press same img again
             let player2Number = checkNumberPlayed(inputImage: inputImage) // What number did you press?
+            game.player2.numberPlayed = player2Number // Set last played number
             game.player2.numbersPlayed.append(player2Number) // Add played number to array
             game.switchTurn()
             updateUI()
@@ -126,6 +146,8 @@ class ViewController: UIViewController {
     }
     
     func setMainLbl() {
+        
+        
         if game.playerWon == game.player1.playerName {
             lblMain.text = "\(game.player1.playerName) won!"
         } else if game.playerWon == game.player2.playerName{
@@ -161,6 +183,8 @@ class ViewController: UIViewController {
             game.player1.won = false
         }
 
+        
+        
    }
     
     @IBAction func onTap1(_ sender: Any) { switchImage(inputImage: img1) }
@@ -179,7 +203,8 @@ class ViewController: UIViewController {
         game.player2.numbersPlayed.removeAll()
         game.player1.isPlaying = true
         game.player2.isPlaying = false
-      
+        game.player1.won = false
+        game.player2.won = false
         resetImages()
 
     }
@@ -207,6 +232,8 @@ class ViewController: UIViewController {
         
         setMainLbl()
         setPlayerLbl()
+        game.setNumbersLeftToPlay()
+        
     }
     
     func disableTap() {
