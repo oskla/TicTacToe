@@ -31,14 +31,16 @@ class ViewController: UIViewController {
     @IBOutlet weak var lblPlayer1Name: UILabel!
    
     let game = Game(
-        player1: Player(image: UIImage(named: "circle")!, isPlaying: true, numberPlayed: 0, playerName: "Kalle1", numbersPlayed: [], numberOfVictories: 0, won: false, isComputer: false),
-        player2: Player(image: UIImage(named: "cross")!, isPlaying: false, numberPlayed: 0, playerName: "Pelle2", numbersPlayed: [], numberOfVictories: 0, won: false, isComputer: true)
+        player1: Player(image: UIImage(named: "circle")!, isPlaying: true, numberPlayed: 0, playerName: "Kalle1", numbersPlayed: [], numberOfVictories: 0, won: false, isComputer: false, moveToMake: 0),
+        player2: Player(image: UIImage(named: "cross")!, isPlaying: false, numberPlayed: 0, playerName: "Pelle2", numbersPlayed: [], numberOfVictories: 0, won: false, isComputer: true, moveToMake: 0)
         )
     
     var name1: String = ""
     var name2: String = ""
     
     var totalNumbersPlayed: Array<Int> = []
+    
+    var someOneWon = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,20 +52,27 @@ class ViewController: UIViewController {
       //  makeRandomMove()
     }
 
-    func makeRandomMove() {
-        game.checkWin(player: &game.player1)
-        if game.player2.isComputer == true && game.ended != true {
-            if let randomElement = game.numbersLeftToPlay.randomElement() {
+    func makeComputerMove() {
+        
+        if game.player2.isComputer && someOneWon != true {
+            let moveToMake = game.computerLastMove(player: &game.player1)
+            let randomElement = game.getRandomNumber()
+            
+            if game.checkNumberSize(number: moveToMake) {
+                
+                // Call performTask after a delay of 1 second
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
+                    switchImage(inputImage: self.numberToImageView(inputNumber: moveToMake))
+                }
+            } else {
+                
                 // Call performTask after a delay of 1 second
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
                     switchImage(inputImage: self.numberToImageView(inputNumber: randomElement))
                 }
-
-                
             }
         }
         
-       
     }
     
     func numberToImageView(inputNumber: Int) -> UIImageView {
@@ -125,9 +134,10 @@ class ViewController: UIViewController {
             let player1Number = checkNumberPlayed(inputImage: inputImage) // What number did you press?
             game.player1.numberPlayed = player1Number // Set last played number
             game.player1.numbersPlayed.append(player1Number) // Add played number to array
-            game.switchTurn()
+            let checkWin = game.switchTurn()
+            someOneWon = checkWin
             updateUI()
-            makeRandomMove()
+            makeComputerMove()
             return
             
             
@@ -138,7 +148,8 @@ class ViewController: UIViewController {
             let player2Number = checkNumberPlayed(inputImage: inputImage) // What number did you press?
             game.player2.numberPlayed = player2Number // Set last played number
             game.player2.numbersPlayed.append(player2Number) // Add played number to array
-            game.switchTurn()
+            let checkWin = game.switchTurn()
+            someOneWon = checkWin
             updateUI()
             
             return

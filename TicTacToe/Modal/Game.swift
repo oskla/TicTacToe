@@ -51,48 +51,107 @@ class Game {
         winningArrays = [win1,win2,win3,win4,win5,win6,win7,win8]
     }
     
-    func switchTurn()  {
+    func switchTurn() -> Bool {
         if player1.isPlaying == true {
             player1.isPlaying = false
             player2.isPlaying = true
-            checkWin(player: &player1)
+            let checkWinP1 = checkWin(player: &player1)
             checkTie()
             removePossibleNumberLeftToPlay(player: player1)
             print("switching turn from player 1 to player 2")
-          return
+          return checkWinP1
         } else {
             player1.isPlaying = true
             player2.isPlaying = false
-
-            checkWin(player: &player2)
+            let checkWinP2 = checkWin(player: &player2)
             checkTie()
             removePossibleNumberLeftToPlay(player: player2)
             print("switching turn from player 2 to player 1")
-            
+            return checkWinP2
         }
-        return
     }
     
-    func checkWin(player: inout Player) {
+    func computerLastMove(player: inout Player) -> Int {
         for i in 0...7 {
-            if winningArrays[i].allSatisfy(player.numbersPlayed.contains) {
+            let checkPlayer1Move = player.numbersPlayed.allSatisfy(winningArrays[i].contains)
+            
+            if checkPlayer1Move {
+                print("--------------------------")
+                print("--------------------------")
+                print("Check \(player.playerName) move: \(checkPlayer1Move)")
+                print("Numbers played: \(player.numbersPlayed)")
+                print("WInningArrays: \(winningArrays[i])")
+                
+                let winningArray = winningArrays[i]
+                let numbersPlayed = player.numbersPlayed
+                
+                let missingNumberArray = winningArray.filter { !numbersPlayed.contains($0) }
+                print("Missing number Array: \(missingNumberArray)")
+                
+                // Add if array is not longer than 1
+                var missingNumber = 0
+                _ = missingNumberArray.map{ missingNumber = missingNumber + $0 }
+                
+                print("Missing number: \(missingNumber)")
+                
+                print("--------------------------")
+                print("--------------------------")
+                
+                player.moveToMake = missingNumber
+                
+                
+                return missingNumber
+            }
+                
+        }
+        return 0
+    }
+    
+    
+    func checkNumberSize(number: Int) -> Bool {
+     
+        if number > 0 && number < 10 {
+            return true
+        }
+        return false
+    }
+    
+    func getRandomNumber() -> Int {
+        if let randomNumber = numbersLeftToPlay.randomElement() {
+            return randomNumber
+        }
+    return 0
+    }
+    
+    func checkWin(player: inout Player) -> Bool {
+       
+     //  let moveToMake = computerLastMove(player: &player)
+        for i in 0...7 {
+            
+          //  let check2 = player.numbersPlayed.allSatisfy(winningArrays[i].contains)
+            let check = winningArrays[i].allSatisfy(player.numbersPlayed.contains)
+          //  print(check2)
+           // print("Check: \(check)")
+           // print(winningArrays[i])
+          //  print(player.numbersPlayed)
+            if check {
                 setNumberOfVictories(player: &player)
                 playerWon = player.playerName
                 player.won = true
-                print("hej")
+               // print("hej")
                 ended = true
-                print("ended: \(ended)")
-                return
+               // print("ended: \(ended!)")
+                return true
             }
         }
-        return
+        return false
     }
     
     func removePossibleNumberLeftToPlay(player: Player) {
         //var result = numbersLeftToPlay.remove(at: 0)
-        print("Number played: \(player.numberPlayed)")
+      //  print("Number played: \(player.numberPlayed)")
        numbersLeftToPlay = numbersLeftToPlay.filter {$0 != player.numberPlayed}
-        print("Numbers left to play: \(numbersLeftToPlay)")
+      //  print("Numbers left to play: \(numbersLeftToPlay)")
         
     }
     

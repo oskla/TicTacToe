@@ -20,6 +20,7 @@ struct Player {
     var numberOfVictories: Int
     var won: Bool
     var isComputer: Bool
+    var moveToMake: Int
     
 //    var isRandom: Bool
     
