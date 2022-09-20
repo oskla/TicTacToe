@@ -1,7 +1,13 @@
 {
   "images" : [
     {
-      "filename" : "Frame 13.svg",
+      "alignment-insets" : {
+        "bottom" : 0,
+        "left" : 0,
+        "right" : -9,
+        "top" : 0
+      },
+      "filename" : "xmark.circle.fill.svg",
       "idiom" : "universal",
       "scale" : "1x"
     },

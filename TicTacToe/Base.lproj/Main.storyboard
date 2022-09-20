@@ -16,7 +16,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="Jzx-xm-ar6" userLabel="Lets play">
-                                <rect key="frame" x="50" y="84" width="170" height="105"/>
+                                <rect key="frame" x="35" y="74" width="170" height="105"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="-4" translatesAutoresizingMaskIntoConstraints="NO" id="y2C-1d-VFz">
                                         <rect key="frame" x="0.0" y="0.0" width="144.5" height="64"/>
@@ -75,8 +75,8 @@
                                     <segue destination="BYZ-38-t0r" kind="showDetail" identifier="loginToGameSegue" id="HcY-CA-KCN"/>
                                 </connections>
                             </button>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="RfK-Eo-zbC">
-                                <rect key="frame" x="20" y="352.5" width="374" height="191"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="19" translatesAutoresizingMaskIntoConstraints="NO" id="RfK-Eo-zbC">
+                                <rect key="frame" x="20" y="339" width="374" height="206"/>
                                 <subviews>
                                     <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ath-0P-lhx">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="56"/>
@@ -89,14 +89,15 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="25J-LH-ot8">
                                                 <rect key="frame" x="0.0" y="0.0" width="374" height="56"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Multiplayer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wyG-nz-cYV">
-                                                        <rect key="frame" x="8" y="16" width="96.5" height="24"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Multiplayer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="84" translatesAutoresizingMaskIntoConstraints="NO" id="wyG-nz-cYV">
+                                                        <rect key="frame" x="15" y="18" width="84" height="20.5"/>
+                                                        <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="8" bottom="8" trailing="8"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <switch opaque="NO" contentMode="scaleToFill" semanticContentAttribute="playback" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cbP-ho-JOq">
-                                                        <rect key="frame" x="317" y="12.5" width="51" height="31"/>
+                                                        <rect key="frame" x="310" y="12.5" width="51" height="31"/>
                                                         <color key="onTintColor" red="1" green="0.67843137254901964" blue="0.41176470588235292" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <connections>
                                                             <action selector="onSwitch:" destination="DN7-0t-ecp" eventType="valueChanged" id="L1a-kL-sZe"/>
@@ -107,7 +108,7 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="56" id="gk8-Sa-usm"/>
                                                 </constraints>
-                                                <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="8" bottom="8" trailing="8"/>
+                                                <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="15" bottom="8" trailing="15"/>
                                             </stackView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -121,26 +122,26 @@
                                         </constraints>
                                         <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="8" bottom="8" trailing="8"/>
                                     </view>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="11" translatesAutoresizingMaskIntoConstraints="NO" id="PYK-dF-Gu5">
-                                        <rect key="frame" x="0.0" y="68" width="374" height="123"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="19" translatesAutoresizingMaskIntoConstraints="NO" id="PYK-dF-Gu5">
+                                        <rect key="frame" x="0.0" y="75" width="374" height="131"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Name of player 2" borderStyle="roundedRect" placeholder="Name of player 2" textAlignment="natural" clearsOnBeginEditing="YES" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="82G-78-vnP">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Name of player 1" borderStyle="roundedRect" placeholder="Name of player 1" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="Tjc-Il-74O">
                                                 <rect key="frame" x="0.0" y="0.0" width="374" height="56"/>
+                                                <color key="backgroundColor" red="0.14901960784313725" green="0.14901960784313725" blue="0.14901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="56" id="HaX-yB-0r5"/>
+                                                </constraints>
+                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Name of player 2" borderStyle="roundedRect" placeholder="Name of player 2" textAlignment="natural" clearsOnBeginEditing="YES" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="82G-78-vnP">
+                                                <rect key="frame" x="0.0" y="75" width="374" height="56"/>
                                                 <color key="backgroundColor" red="0.14901960784313725" green="0.14901960784313725" blue="0.14901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="56" id="j6l-3j-EYc"/>
                                                 </constraints>
                                                 <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="8" bottom="8" trailing="8"/>
-                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                            </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Name of player 1" borderStyle="roundedRect" placeholder="Name of player 1" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="Tjc-Il-74O">
-                                                <rect key="frame" x="0.0" y="67" width="374" height="56"/>
-                                                <color key="backgroundColor" red="0.14901960784313725" green="0.14901960784313725" blue="0.14901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="56" id="HaX-yB-0r5"/>
-                                                </constraints>
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits"/>
@@ -157,15 +158,15 @@
                         <viewLayoutGuide key="safeArea" id="nXs-KJ-apJ"/>
                         <color key="backgroundColor" red="0.086274509803921567" green="0.086274509803921567" blue="0.086274509803921567" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="Jzx-xm-ar6" firstAttribute="leading" secondItem="nXs-KJ-apJ" secondAttribute="leading" constant="50" id="736-HQ-2uY"/>
+                            <constraint firstItem="Jzx-xm-ar6" firstAttribute="leading" secondItem="nXs-KJ-apJ" secondAttribute="leading" constant="35" id="736-HQ-2uY"/>
+                            <constraint firstItem="RfK-Eo-zbC" firstAttribute="top" secondItem="Jzx-xm-ar6" secondAttribute="bottom" constant="160" id="Jnb-g3-hyX"/>
                             <constraint firstItem="RfK-Eo-zbC" firstAttribute="centerX" secondItem="Aej-wv-YxQ" secondAttribute="centerX" id="MI2-Yj-riP"/>
                             <constraint firstItem="okh-7T-BdH" firstAttribute="trailing" secondItem="RfK-Eo-zbC" secondAttribute="trailing" id="R32-kp-jpA"/>
                             <constraint firstItem="nXs-KJ-apJ" firstAttribute="trailing" secondItem="RfK-Eo-zbC" secondAttribute="trailing" constant="20" id="VRu-as-PTX"/>
-                            <constraint firstItem="RfK-Eo-zbC" firstAttribute="centerY" secondItem="Aej-wv-YxQ" secondAttribute="centerY" id="dEp-gx-12d"/>
                             <constraint firstAttribute="bottomMargin" secondItem="okh-7T-BdH" secondAttribute="bottom" constant="76" id="dey-KA-FRf"/>
                             <constraint firstItem="RfK-Eo-zbC" firstAttribute="centerX" secondItem="Aej-wv-YxQ" secondAttribute="centerX" id="nSm-BJ-vyF"/>
                             <constraint firstItem="RfK-Eo-zbC" firstAttribute="leading" secondItem="nXs-KJ-apJ" secondAttribute="leading" constant="20" id="sRs-gU-Moj"/>
-                            <constraint firstItem="Jzx-xm-ar6" firstAttribute="top" secondItem="nXs-KJ-apJ" secondAttribute="top" constant="40" id="wfn-k5-Juh"/>
+                            <constraint firstItem="Jzx-xm-ar6" firstAttribute="top" secondItem="nXs-KJ-apJ" secondAttribute="top" constant="30" id="wfn-k5-Juh"/>
                             <constraint firstItem="okh-7T-BdH" firstAttribute="leading" secondItem="RfK-Eo-zbC" secondAttribute="leading" id="zbs-Ji-PiX"/>
                         </constraints>
                     </view>

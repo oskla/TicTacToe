@@ -8,8 +8,20 @@
 import UIKit
 
 
+extension UITextField {
+    func setLeftPaddingPoints(_ amount:CGFloat){
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: amount, height: self.frame.size.height))
+        self.leftView = paddingView
+        self.leftViewMode = .always
+    }
+    func setRightPaddingPoints(_ amount:CGFloat) {
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: amount, height: self.frame.size.height))
+        self.rightView = paddingView
+        self.rightViewMode = .always
+    }
+}
 
-class LoginViewController: UIViewController{
+class LoginViewController: UIViewController {
 
     
     @IBOutlet weak var inputPlayer1: UITextField!
@@ -31,8 +43,8 @@ class LoginViewController: UIViewController{
                     clearButton.setImage(UIImage(named:"erase"), for: .normal)
                 }
 
-        let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
-        
+        inputPlayer1.setLeftPaddingPoints(7)
+        inputPlayer2.setLeftPaddingPoints(7)
  
       // viewMultiplayer.backgroundColor = UIColor(patternImage: UIImage(named: "inputfield")!)
         
@@ -40,13 +52,19 @@ class LoginViewController: UIViewController{
         // Do any additional setup after loading the view.
     }
     
+    
+    
     @IBAction func onSwitch(_ sender: Any) {
         
         if isComputer == true {
             isComputer = false
+            inputPlayer2.isHidden = false
         } else {
             isComputer = true
+            inputPlayer2.isHidden = true
         }
+        
+        
         
     }
     
