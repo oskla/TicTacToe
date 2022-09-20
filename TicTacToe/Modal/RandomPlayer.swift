@@ -19,11 +19,6 @@ struct RandomPlayer {
     var numbersPlayed: Array<Int>
     var numberOfVictories: Int
     
-    func playRandom() {
-        let totalNumbersPlayed = viewController.totalNumbersPlayed
-        if let randomElement = totalNumbersPlayed.randomElement() {
-            print(randomElement)
-        }
-    }
+   
     
 }

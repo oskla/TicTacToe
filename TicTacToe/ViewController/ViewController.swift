@@ -7,8 +7,13 @@
 
 import UIKit
 
+
+
+
+
 class ViewController: UIViewController {
 
+    
     
     // TODO - make player2 a little smarter. For example if played [1,5,8]. Recognize that [2,5,8] is closest win (if 2 is not taken)
     
@@ -37,11 +42,12 @@ class ViewController: UIViewController {
         player2: Player(image: UIImage(named: "cross")!, isPlaying: false, numberPlayed: 0, playerName: "Pelle2", numbersPlayed: [], numberOfVictories: 0, won: false, isComputer: true)
         )
     
+    
     var name1: String = "Kalle1"
     var name2: String = "Pelle2"
     var isComputer: Bool = false
     
-    var totalNumbersPlayed: Array<Int> = []
+  //  var totalNumbersPlayed: Array<Int> = []
     
     var someOneWon = false
     var isTie = false
@@ -62,7 +68,6 @@ class ViewController: UIViewController {
     
     func makeComputerMove() {
         
-
         
         if game.player2.isComputer && !someOneWon && !isTie {
             let moveToMakeIfP1HasTwoInARow = game.whatNumberToPlay(player: &game.player1)
@@ -133,6 +138,7 @@ class ViewController: UIViewController {
         setPlayerLbl()
         setMainLbl()
         setVictoriesLbl()
+
         
         guard let gameEnded = game.ended else { return }
            if gameEnded == true {

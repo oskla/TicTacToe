@@ -7,11 +7,15 @@
 
 import UIKit
 
+
+
 class LoginViewController: UIViewController{
 
     
     @IBOutlet weak var inputPlayer1: UITextField!
     @IBOutlet weak var inputPlayer2: UITextField!
+    
+    @IBOutlet weak var viewMultiplayer: UIView!
     
     let loginToGameSegue = "loginToGameSegue"
     var isComputer = false
@@ -19,6 +23,19 @@ class LoginViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        if let clearButton = inputPlayer1.value(forKeyPath: "_clearButton") as? UIButton {
+                    clearButton.setImage(UIImage(named:"erase"), for: .normal)
+                }
+        if let clearButton = inputPlayer2.value(forKeyPath: "_clearButton") as? UIButton {
+                    clearButton.setImage(UIImage(named:"erase"), for: .normal)
+                }
+
+        let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
+        
+ 
+      // viewMultiplayer.backgroundColor = UIColor(patternImage: UIImage(named: "inputfield")!)
+        
 
         // Do any additional setup after loading the view.
     }
