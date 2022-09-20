@@ -14,6 +14,7 @@ class LoginViewController: UIViewController{
     @IBOutlet weak var inputPlayer2: UITextField!
     
     let loginToGameSegue = "loginToGameSegue"
+    var isComputer = false
     
     
     override func viewDidLoad() {
@@ -22,7 +23,16 @@ class LoginViewController: UIViewController{
         // Do any additional setup after loading the view.
     }
     
-
+    @IBAction func onSwitch(_ sender: Any) {
+        
+        if isComputer == true {
+            isComputer = false
+        } else {
+            isComputer = true
+        }
+        
+    }
+    
     @IBAction func onPressStart(_ sender: Any) {
         
        
@@ -42,6 +52,7 @@ class LoginViewController: UIViewController{
             if let destinationVC = segue.destination as? ViewController {
                 destinationVC.name1 = self.inputPlayer1.text ?? ""
                 destinationVC.name2 = self.inputPlayer2.text ?? ""
+                destinationVC.isComputer = self.isComputer
             }
         }
         

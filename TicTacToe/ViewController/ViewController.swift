@@ -39,6 +39,7 @@ class ViewController: UIViewController {
     
     var name1: String = "Kalle1"
     var name2: String = "Pelle2"
+    var isComputer: Bool = false
     
     var totalNumbersPlayed: Array<Int> = []
     
@@ -48,8 +49,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-
         setPlayerNames()
+        isPlayerComputer()
         game.addToArray()
         updateUI()
       //  makeRandomMove()
@@ -224,10 +225,15 @@ class ViewController: UIViewController {
             game.player2.won = false
             game.player1.won = false
         }
-
-        
-        
    }
+    
+    func isPlayerComputer() {
+        if isComputer {
+            game.player2.isComputer = true
+        } else {
+            game.player2.isComputer = false
+        }
+    }
     
     @IBAction func onTap1(_ sender: Any) { switchImage(inputImage: img1) }
     @IBAction func onTap2(_ sender: Any) { switchImage(inputImage: img2) }
