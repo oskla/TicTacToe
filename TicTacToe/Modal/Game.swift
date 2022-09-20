@@ -51,61 +51,117 @@ class Game {
         winningArrays = [win1,win2,win3,win4,win5,win6,win7,win8]
     }
     
-    func switchTurn() -> Bool {
+    func switchTurn() -> (Bool, Bool) {
         if player1.isPlaying == true {
             player1.isPlaying = false
             player2.isPlaying = true
             let checkWinP1 = checkWin(player: &player1)
-            checkTie()
+            let checkTie = checkTie()
             removePossibleNumberLeftToPlay(player: player1)
             print("switching turn from player 1 to player 2")
-          return checkWinP1
+          return (checkWinP1, checkTie)
         } else {
             player1.isPlaying = true
             player2.isPlaying = false
             let checkWinP2 = checkWin(player: &player2)
-            checkTie()
+            let checkTie = checkTie()
             removePossibleNumberLeftToPlay(player: player2)
             print("switching turn from player 2 to player 1")
-            return checkWinP2
+            return (checkWinP2, checkTie)
         }
     }
     
-    func computerLastMove(player: inout Player) -> Int {
+    func whatNumberToPlay(player: inout Player) -> Int {
+    //    goForTheWin(player: &player)
         for i in 0...7 {
-            let checkPlayer1Move = player.numbersPlayed.allSatisfy(winningArrays[i].contains)
             
+            // Check if played number appears in any of the winningArrays
+            let checkPlayer1Move = player.numbersPlayed.allSatisfy(winningArrays[i].contains)
+
+            //If true ->
             if checkPlayer1Move {
-                print("--------------------------")
-                print("--------------------------")
-                print("Check \(player.playerName) move: \(checkPlayer1Move)")
-                print("Numbers played: \(player.numbersPlayed)")
-                print("WInningArrays: \(winningArrays[i])")
                 
                 let winningArray = winningArrays[i]
                 let numbersPlayed = player.numbersPlayed
+                var missingNumber = "0"
                 
-                let missingNumberArray = winningArray.filter { !numbersPlayed.contains($0) }
-                print("Missing number Array: \(missingNumberArray)")
+                // Get missing number from winningArray
+                let missingNumberArray = winningArray.filter { numbersPlayed.contains($0) == false }
+                print("----------")
+                print(" \(player.playerName) Numbers played: \(numbersPlayed)")
+                print(" \(player.playerName) identified winning array: \(winningArray)")
+                print(" \(player.playerName) Missing Number array: \(missingNumberArray)")
+                print("----------")
+
                 
-                // Add if array is not longer than 1
-                var missingNumber = 0
-                _ = missingNumberArray.map{ missingNumber = missingNumber + $0 }
+                // add citation to every mapped element
+                _ = missingNumberArray.map{ missingNumber = missingNumber + "\($0)" }
+               
+                //Transform array into Int
+                let missingNumberInt: Int = Int(missingNumber)!
                 
-                print("Missing number: \(missingNumber)")
+                // Check if number is possible to play
+                let isItAvailable = checkNumberAvailable(numberPlayed: missingNumberInt)
                 
-                print("--------------------------")
-                print("--------------------------")
+                if isItAvailable {
+                    return missingNumberInt
+                }
                 
-                player.moveToMake = missingNumber
-                
-                
-                return missingNumber
+                return 0
             }
                 
         }
         return 0
     }
+    
+    
+    func secondRound(player: inout Player) -> Int {
+    //    goForTheWin(player: &player)
+        for i in 0...7 {
+            
+            // Check if played number appears in any of the winningArrays
+            let checkPlayer1Move = player.numbersPlayed.allSatisfy(winningArrays[i].contains)
+
+            //If true ->
+            if checkPlayer1Move {
+                
+                let winningArray = winningArrays[i]
+                let numbersPlayed = player.numbersPlayed
+                let missingNumber = "0"
+                
+                // Get missing number from winningArray
+                let missingNumberArray = numbersPlayed.filter { winningArray.contains($0) == false }
+                print("----------")
+                print(" \(player.playerName) Numbers played: \(numbersPlayed)")
+                print(" \(player.playerName) Missing Number array: \(missingNumberArray)")
+                print("----------")
+                
+           
+                
+                // Check if number is possible to play
+              //  let isItAvailable = checkNumberAvailable(numberPlayed: missingNumberInt)
+                
+//                if isItAvailable {
+//                    return 0 //missingNumberInt
+//                }
+                
+                return 0
+            }
+                
+        }
+        return 0
+    }
+    
+    func checkNumberAvailable(numberPlayed: Int) -> Bool {
+        
+        let isNumberAvailable = numbersLeftToPlay.contains(numberPlayed)
+        
+        if isNumberAvailable {
+            return true
+        }
+        return false
+    }
+
     
     
     func checkNumberSize(number: Int) -> Bool {
@@ -130,17 +186,12 @@ class Game {
             
           //  let check2 = player.numbersPlayed.allSatisfy(winningArrays[i].contains)
             let check = winningArrays[i].allSatisfy(player.numbersPlayed.contains)
-          //  print(check2)
-           // print("Check: \(check)")
-           // print(winningArrays[i])
-          //  print(player.numbersPlayed)
             if check {
                 setNumberOfVictories(player: &player)
                 playerWon = player.playerName
                 player.won = true
-               // print("hej")
                 ended = true
-               // print("ended: \(ended!)")
+                print("Win!!")
                 return true
             }
         }
@@ -148,14 +199,11 @@ class Game {
     }
     
     func removePossibleNumberLeftToPlay(player: Player) {
-        //var result = numbersLeftToPlay.remove(at: 0)
-      //  print("Number played: \(player.numberPlayed)")
        numbersLeftToPlay = numbersLeftToPlay.filter {$0 != player.numberPlayed}
-      //  print("Numbers left to play: \(numbersLeftToPlay)")
         
     }
     
-    func checkTie() {
+    func checkTie() -> Bool {
        
         let allNumbersPlayed = [1,2,3,4,5,6,7,8,9]
         totalNumbersPlayed = player1.numbersPlayed + player2.numbersPlayed
@@ -163,8 +211,10 @@ class Game {
         
         if totalNumbersPlayed == allNumbersPlayed {
             isTie = true
+            print("Tie!!")
+            return true
         }
-        
+        return false
     }
     
     func setNumbersLeftToPlay() {

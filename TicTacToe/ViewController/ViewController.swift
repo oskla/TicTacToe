@@ -10,7 +10,9 @@ import UIKit
 class ViewController: UIViewController {
 
     
-   // TODO - How to not make move after win when player2 = computer
+    // TODO - make player2 a little smarter. For example if played [1,5,8]. Recognize that [2,5,8] is closest win (if 2 is not taken)
+    
+    // fix UI for login so you can pick 1p or 2p
     
     @IBOutlet weak var img1: UIImageView!
     @IBOutlet weak var img2: UIImageView!
@@ -31,16 +33,17 @@ class ViewController: UIViewController {
     @IBOutlet weak var lblPlayer1Name: UILabel!
    
     let game = Game(
-        player1: Player(image: UIImage(named: "circle")!, isPlaying: true, numberPlayed: 0, playerName: "Kalle1", numbersPlayed: [], numberOfVictories: 0, won: false, isComputer: false, moveToMake: 0),
-        player2: Player(image: UIImage(named: "cross")!, isPlaying: false, numberPlayed: 0, playerName: "Pelle2", numbersPlayed: [], numberOfVictories: 0, won: false, isComputer: true, moveToMake: 0)
+        player1: Player(image: UIImage(named: "circle")!, isPlaying: true, numberPlayed: 0, playerName: "Kalle1", numbersPlayed: [], numberOfVictories: 0, won: false, isComputer: false),
+        player2: Player(image: UIImage(named: "cross")!, isPlaying: false, numberPlayed: 0, playerName: "Pelle2", numbersPlayed: [], numberOfVictories: 0, won: false, isComputer: true)
         )
     
-    var name1: String = ""
-    var name2: String = ""
+    var name1: String = "Kalle1"
+    var name2: String = "Pelle2"
     
     var totalNumbersPlayed: Array<Int> = []
     
     var someOneWon = false
+    var isTie = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,23 +55,37 @@ class ViewController: UIViewController {
       //  makeRandomMove()
     }
 
+    
+    
+
+    
     func makeComputerMove() {
         
-        if game.player2.isComputer && someOneWon != true {
-            let moveToMake = game.computerLastMove(player: &game.player1)
+
+        
+        if game.player2.isComputer && !someOneWon && !isTie {
+            let moveToMakeIfP1HasTwoInARow = game.whatNumberToPlay(player: &game.player1)
+            let moveToMakeIfP2HasTwoInARow = game.whatNumberToPlay(player: &game.player2)
             let randomElement = game.getRandomNumber()
             
-            if game.checkNumberSize(number: moveToMake) {
-                
+            // Check if array 
+            if game.checkNumberSize(number: moveToMakeIfP2HasTwoInARow) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
+                    switchImage(inputImage: self.numberToImageView(inputNumber: moveToMakeIfP2HasTwoInARow))
+                    print("player2 has two in a row\(moveToMakeIfP2HasTwoInARow)")
+                }
+                return
+            } else if game.checkNumberSize(number: moveToMakeIfP1HasTwoInARow) {
                 // Call performTask after a delay of 1 second
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
-                    switchImage(inputImage: self.numberToImageView(inputNumber: moveToMake))
+                    switchImage(inputImage: self.numberToImageView(inputNumber: moveToMakeIfP1HasTwoInARow))
+                    print("player1 has two in a row\(moveToMakeIfP1HasTwoInARow)")
                 }
             } else {
-                
                 // Call performTask after a delay of 1 second
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
                     switchImage(inputImage: self.numberToImageView(inputNumber: randomElement))
+                    print("playing random: \(randomElement)")
                 }
             }
         }
@@ -132,10 +149,16 @@ class ViewController: UIViewController {
             inputImage.image = game.player1.image
             inputImage.isUserInteractionEnabled = false // Can't press same img again
             let player1Number = checkNumberPlayed(inputImage: inputImage) // What number did you press?
+            
             game.player1.numberPlayed = player1Number // Set last played number
             game.player1.numbersPlayed.append(player1Number) // Add played number to array
-            let checkWin = game.switchTurn()
+            
+            let checkSwitchTurn = game.switchTurn()
+            let checkWin = checkSwitchTurn.0
+            let checkTie = checkSwitchTurn.1
+            
             someOneWon = checkWin
+            isTie = checkTie
             updateUI()
             makeComputerMove()
             return
@@ -146,10 +169,16 @@ class ViewController: UIViewController {
             inputImage.image = game.player2.image
             inputImage.isUserInteractionEnabled = false // Can't press same img again
             let player2Number = checkNumberPlayed(inputImage: inputImage) // What number did you press?
+            
             game.player2.numberPlayed = player2Number // Set last played number
             game.player2.numbersPlayed.append(player2Number) // Add played number to array
-            let checkWin = game.switchTurn()
+            
+            let checkSwitchTurn = game.switchTurn()
+            let checkWin = checkSwitchTurn.0 // Return value for checkWin
+            let checkTie = checkSwitchTurn.1 // Return value for checkTie
+            
             someOneWon = checkWin
+            isTie = checkTie
             updateUI()
             
             return
@@ -163,11 +192,13 @@ class ViewController: UIViewController {
             lblMain.text = "\(game.player1.playerName) won!"
         } else if game.playerWon == game.player2.playerName{
             lblMain.text = "\(game.player2.playerName) won!"
-        } else if !game.player1.won || !game.player2.won {
+        }
+        
+        if !someOneWon {
             lblMain.text = "Let's play!"
         }
         
-        if game.isTie ?? false {
+        if game.isTie ?? false && !someOneWon {
             lblMain.text = "It's a tie!"
             game.isTie = false
         }
@@ -212,11 +243,13 @@ class ViewController: UIViewController {
         
         game.player1.numbersPlayed.removeAll()
         game.player2.numbersPlayed.removeAll()
+        someOneWon = false
         game.player1.isPlaying = true
         game.player2.isPlaying = false
         game.player1.won = false
         game.player2.won = false
         resetImages()
+        
 
     }
     
