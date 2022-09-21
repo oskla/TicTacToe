@@ -18,6 +18,9 @@ class Game {
     var player1: Player
     var player2: Player
     
+    var theWinningArray1: Array<Int> = []
+    var theWinningArray2: Array<Int> = []
+    
     init(player1: Player, player2: Player) {
         self.player1 = player1
         self.player2 = player2
@@ -189,14 +192,15 @@ class Game {
      //  let moveToMake = computerLastMove(player: &player)
         for i in 0...7 {
             
-          //  let check2 = player.numbersPlayed.allSatisfy(winningArrays[i].contains)
             let check = winningArrays[i].allSatisfy(player.numbersPlayed.contains)
             if check {
                 setNumberOfVictories(player: &player)
                 playerWon = player.playerName
                 player.won = true
+
                 ended = true
                 print("Win!!")
+
                 return true
             }
         }
@@ -230,5 +234,7 @@ class Game {
         player.numberOfVictories += 1
         
     }
+    
+    func returnWinningArray() -> Array<Int> {return theWinningArray1}
     
 }

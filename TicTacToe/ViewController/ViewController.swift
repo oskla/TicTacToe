@@ -31,12 +31,17 @@ class ViewController: UIViewController {
     @IBOutlet weak var lblMain: UILabel!
     @IBOutlet weak var lblPlayerTurn: UILabel!
     
+    @IBOutlet weak var imgInfoBox: UIImageView!
+    @IBOutlet weak var imgInfoBox2: UIImageView!
     @IBOutlet weak var lblPlayer1Wins: UILabel!
     @IBOutlet weak var lblPlayer2Wins: UILabel!
     
     @IBOutlet weak var lblPlayer2Name: UILabel!
     @IBOutlet weak var lblPlayer1Name: UILabel!
    
+    @IBOutlet weak var lblWinP1: UILabel!
+    @IBOutlet weak var lblWinP2: UILabel!
+    
     let game = Game(
         player1: Player(image: UIImage(named: "circle")!, isPlaying: true, numberPlayed: 0, playerName: "Kalle1", numbersPlayed: [], numberOfVictories: 0, won: false, isComputer: false),
         player2: Player(image: UIImage(named: "cross")!, isPlaying: false, numberPlayed: 0, playerName: "Pelle2", numbersPlayed: [], numberOfVictories: 0, won: false, isComputer: true)
@@ -59,6 +64,7 @@ class ViewController: UIViewController {
         isPlayerComputer()
         game.addToArray()
         updateUI()
+        resetInfoBoxes()
       //  makeRandomMove()
     }
 
@@ -76,20 +82,20 @@ class ViewController: UIViewController {
             
             // Check if array 
             if game.checkNumberSize(number: moveToMakeIfP2HasTwoInARow) {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) { [self] in
                     switchImage(inputImage: self.numberToImageView(inputNumber: moveToMakeIfP2HasTwoInARow))
                     print("player2 has two in a row\(moveToMakeIfP2HasTwoInARow)")
                 }
                 return
             } else if game.checkNumberSize(number: moveToMakeIfP1HasTwoInARow) {
                 // Call performTask after a delay of 1 second
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) { [self] in
                     switchImage(inputImage: self.numberToImageView(inputNumber: moveToMakeIfP1HasTwoInARow))
                     print("player1 has two in a row\(moveToMakeIfP1HasTwoInARow)")
                 }
             } else {
                 // Call performTask after a delay of 1 second
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) { [self] in
                     switchImage(inputImage: self.numberToImageView(inputNumber: randomElement))
                     print("playing random: \(randomElement)")
                 }
@@ -114,6 +120,8 @@ class ViewController: UIViewController {
         }
     }
     
+   
+    
     func checkNumberPlayed(inputImage: UIImageView) -> Int {
         switch inputImage {
         case img1: return 1
@@ -130,15 +138,28 @@ class ViewController: UIViewController {
     }
         
     func setPlayerNames() {
-        game.player1.playerName = name1
-        game.player2.playerName = name2
+        
+        if name1 == "Name of player 1" {
+            game.player1.playerName = "Player 1"
+        } else {
+            game.player1.playerName = name1
+        }
+        
+        if name2 == "Name of player 2" {
+            game.player2.playerName = "Player 2"
+        } else {
+            game.player2.playerName = name2
+        }
+        
+       
     }
 
     func updateUI() {
+        winLabels()
         setPlayerLbl()
         setMainLbl()
         setVictoriesLbl()
-
+        
         
         guard let gameEnded = game.ended else { return }
            if gameEnded == true {
@@ -153,6 +174,7 @@ class ViewController: UIViewController {
 
         // What image to play
         if game.player1.isPlaying {
+            
             inputImage.image = game.player1.image
             inputImage.isUserInteractionEnabled = false // Can't press same img again
             let player1Number = checkNumberPlayed(inputImage: inputImage) // What number did you press?
@@ -160,12 +182,21 @@ class ViewController: UIViewController {
             game.player1.numberPlayed = player1Number // Set last played number
             game.player1.numbersPlayed.append(player1Number) // Add played number to array
             
+           
             let checkSwitchTurn = game.switchTurn()
             let checkWin = checkSwitchTurn.0
             let checkTie = checkSwitchTurn.1
             
+
             someOneWon = checkWin
             isTie = checkTie
+            
+            if someOneWon != true {
+            imgInfoBox2.image = UIImage(named: "infoboxhighlightp2")
+            imgInfoBox.image = UIImage(named: "infobox")
+            } 
+            
+            
             updateUI()
             makeComputerMove()
             return
@@ -180,16 +211,29 @@ class ViewController: UIViewController {
             game.player2.numberPlayed = player2Number // Set last played number
             game.player2.numbersPlayed.append(player2Number) // Add played number to array
             
+           
             let checkSwitchTurn = game.switchTurn()
             let checkWin = checkSwitchTurn.0 // Return value for checkWin
             let checkTie = checkSwitchTurn.1 // Return value for checkTie
             
             someOneWon = checkWin
+            
+            if someOneWon != true {
+            imgInfoBox.image = UIImage(named: "infoboxhighlight")
+            imgInfoBox2.image = UIImage(named: "infobox")
+            }
+            
             isTie = checkTie
             updateUI()
             
             return
      }
+    }
+    
+    func resetInfoBoxes() {
+   
+            imgInfoBox.image = UIImage(named: "infoboxhighlight")
+            imgInfoBox2.image = UIImage(named: "infobox")
     }
     
     func setMainLbl() {
@@ -212,8 +256,11 @@ class ViewController: UIViewController {
     }
     
     func setVictoriesLbl() {
-        lblPlayer1Wins.text = String(game.player1.numberOfVictories)
-        lblPlayer2Wins.text = String(game.player2.numberOfVictories)
+        
+        let numberOfVictoriesp1 = String(game.player1.numberOfVictories)
+        let numberOfVictoriesp2 = String(game.player2.numberOfVictories)
+        lblPlayer1Wins.text = "Wins: \(numberOfVictoriesp1)"
+        lblPlayer2Wins.text = "Wins: \(numberOfVictoriesp2)"
         lblPlayer1Name.text = game.player1.playerName
         lblPlayer2Name.text = game.player2.playerName
 
@@ -228,10 +275,47 @@ class ViewController: UIViewController {
         
         if game.player1.won || game.player2.won || game.isTie ?? false {
             lblPlayerTurn.text = "Press reset to start new game"
+//            lblWinP1.text = "Win!"
+//            lblWinP1.isHidden = false
             game.player2.won = false
             game.player1.won = false
         }
    }
+    
+    func winLabels() {
+        if game.player1.won {
+            lblWinP1.text = "Win!"
+            lblWinP1.isHidden = false
+            lblPlayer1Name.isHidden = true
+            lblPlayer1Wins.isHidden = true
+            // Player 2
+            lblWinP2.text = "Lost"
+            lblWinP2.isHidden = false
+            lblPlayer2Name.isHidden = true
+            lblPlayer2Wins.isHidden = true
+            
+            
+        } else if game.player2.won {
+            lblWinP2.text = "Win!"
+            lblWinP2.isHidden = false
+            lblPlayer2Name.isHidden = true
+            lblPlayer2Wins.isHidden = true
+            // Player 1
+            lblWinP1.text = "Lost"
+            lblWinP1.isHidden = false
+            lblPlayer1Name.isHidden = true
+            lblPlayer1Wins.isHidden = true
+        }
+    }
+    
+    func resetWinLabels() {
+        lblPlayer1Name.isHidden = false
+        lblPlayer1Wins.isHidden = false
+        lblPlayer2Name.isHidden = false
+        lblPlayer2Wins.isHidden = false
+        lblWinP1.isHidden = true
+        lblWinP2.isHidden = true
+    }
     
     func isPlayerComputer() {
         if isComputer {
@@ -261,7 +345,8 @@ class ViewController: UIViewController {
         game.player1.won = false
         game.player2.won = false
         resetImages()
-        
+        resetInfoBoxes()
+        resetWinLabels()
 
     }
     
