@@ -17,7 +17,7 @@ class ViewController: UIViewController {
     
     // TODO - make player2 a little smarter. For example if played [1,5,8]. Recognize that [2,5,8] is closest win (if 2 is not taken)
     
-    // fix UI for login so you can pick 1p or 2p
+    // TODO - when win or tie - change text in button to "play again"
     
     @IBOutlet weak var img1: UIImageView!
     @IBOutlet weak var img2: UIImageView!

@@ -73,6 +73,8 @@ class Game {
     
     func whatNumberToPlay(player: inout Player) -> Int {
     //    goForTheWin(player: &player)
+        var missingNumberArray: Array<Int> = []
+        
         for i in 0...7 {
             
             // Check if played number appears in any of the winningArrays
@@ -81,12 +83,13 @@ class Game {
             //If true ->
             if checkPlayer1Move {
                 
+                
                 let winningArray = winningArrays[i]
                 let numbersPlayed = player.numbersPlayed
                 var missingNumber = "0"
                 
                 // Get missing number from winningArray
-                let missingNumberArray = winningArray.filter { numbersPlayed.contains($0) == false }
+                missingNumberArray = winningArray.filter { numbersPlayed.contains($0) == false }
                 print("----------")
                 print(" \(player.playerName) Numbers played: \(numbersPlayed)")
                 print(" \(player.playerName) identified winning array: \(winningArray)")
@@ -104,7 +107,9 @@ class Game {
                 let isItAvailable = checkNumberAvailable(numberPlayed: missingNumberInt)
                 
                 if isItAvailable {
+                    print("missing number: \(missingNumberInt)")
                     return missingNumberInt
+                    
                 }
                 
                 return 0
