@@ -507,10 +507,6 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstItem="JDu-wA-s6b" firstAttribute="leading" secondItem="Iw3-Xf-sDV" secondAttribute="leading" id="AgU-rZ-cFb"/>
-                                    <constraint firstItem="JDu-wA-s6b" firstAttribute="trailing" secondItem="Iw3-Xf-sDV" secondAttribute="trailing" id="qlb-aG-2kx"/>
-                                </constraints>
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>

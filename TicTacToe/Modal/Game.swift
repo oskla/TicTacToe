@@ -13,7 +13,15 @@ import UIKit
 class Game {
 
    
-    var winningArrays = [[Int]]()
+    var winningArrays =
+        [[3, 5, 7],
+        [1, 5, 9],
+        [1, 4, 7],
+        [2, 5, 8],
+        [3, 6, 9],
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9]]
     
     var player1: Player
     var player2: Player
@@ -31,28 +39,7 @@ class Game {
     var isTie: Bool?
     var totalNumbersPlayed: Array<Int> = []
     var numbersLeftToPlay: Array<Int> = [1,2,3,4,5,6,7,8,9]
- //   var currentGameStatus = STATUS_GAME_INACTIVE
-    
-    //Numbers that will lead to victory
-    let win1 = [3, 5, 7]
-    let win2 = [1, 5, 9]
-    let win3 = [1, 4, 7]
-    let win4 = [2, 5, 8]
-    let win5 = [3, 6, 9]
-    let win6 = [1, 2, 3]
-    let win7 = [4, 5, 6]
-    let win8 = [7, 8, 9]
-    
-    func startGame() -> Bool {
-        if player2.isComputer {
-            return true
-        }
-        return false
-    }
 
-    func addToArray() {
-        winningArrays = [win1,win2,win3,win4,win5,win6,win7,win8]
-    }
     
     func switchTurn() -> (Bool, Bool) {
         if player1.isPlaying == true {
@@ -74,96 +61,40 @@ class Game {
         }
     }
     
+    // Computer move
     func whatNumberToPlay(player: inout Player) -> Int {
-    //    goForTheWin(player: &player)
         var missingNumberArray: Array<Int> = []
         
-        for i in 0...7 {
+        for i in 0...(winningArrays.count - 1) {
             
             // Check if played number appears in any of the winningArrays
-            let checkPlayer1Move = player.numbersPlayed.allSatisfy(winningArrays[i].contains)
+            let checkPlayerMove = player.numbersPlayed.allSatisfy(winningArrays[i].contains)
 
             //If true ->
-            if checkPlayer1Move {
-                
+            if checkPlayerMove {
                 
                 let winningArray = winningArrays[i]
                 let numbersPlayed = player.numbersPlayed
                 var missingNumber = "0"
                 
-                // Get missing number from winningArray
-                missingNumberArray = winningArray.filter { numbersPlayed.contains($0) == false }
-                print("----------")
-                print(" \(player.playerName) Numbers played: \(numbersPlayed)")
-                print(" \(player.playerName) identified winning array: \(winningArray)")
-                print(" \(player.playerName) Missing Number array: \(missingNumberArray)")
-                print("----------")
-
-                
-                // add citation to every mapped element
-                _ = missingNumberArray.map{ missingNumber = missingNumber + "\($0)" }
-               
-                //Transform array into Int
-                let missingNumberInt: Int = Int(missingNumber)!
-                
-                // Check if number is possible to play
-                let isItAvailable = checkNumberAvailable(numberPlayed: missingNumberInt)
+                missingNumberArray = winningArray.filter { numbersPlayed.contains($0) == false } // Get missing number from winningArray
+                _ = missingNumberArray.map{ missingNumber = missingNumber + "\($0)" } // add citation to every mapped element
+                let missingNumberInt: Int = Int(missingNumber)! //Transform array into Int
+                let isItAvailable = checkNumberAvailable(numberPlayed: missingNumberInt) // Check if number is possible to play
                 
                 if isItAvailable {
-                    print("missing number: \(missingNumberInt)")
                     return missingNumberInt
                     
                 }
-                
                 return 0
             }
-                
         }
         return 0
     }
     
-    
-    func secondRound(player: inout Player) -> Int {
-    //    goForTheWin(player: &player)
-        for i in 0...7 {
-            
-            // Check if played number appears in any of the winningArrays
-            let checkPlayer1Move = player.numbersPlayed.allSatisfy(winningArrays[i].contains)
-
-            //If true ->
-            if checkPlayer1Move {
-                
-                let winningArray = winningArrays[i]
-                let numbersPlayed = player.numbersPlayed
-                let missingNumber = "0"
-                
-                // Get missing number from winningArray
-                let missingNumberArray = numbersPlayed.filter { winningArray.contains($0) == false }
-                print("----------")
-                print(" \(player.playerName) Numbers played: \(numbersPlayed)")
-                print(" \(player.playerName) Missing Number array: \(missingNumberArray)")
-                print("----------")
-                
-           
-                
-                // Check if number is possible to play
-              //  let isItAvailable = checkNumberAvailable(numberPlayed: missingNumberInt)
-                
-//                if isItAvailable {
-//                    return 0 //missingNumberInt
-//                }
-                
-                return 0
-            }
-                
-        }
-        return 0
-    }
     
     func checkNumberAvailable(numberPlayed: Int) -> Bool {
-        
         let isNumberAvailable = numbersLeftToPlay.contains(numberPlayed)
-        
         if isNumberAvailable {
             return true
         }
@@ -173,7 +104,6 @@ class Game {
     
     
     func checkNumberSize(number: Int) -> Bool {
-     
         if number > 0 && number < 10 {
             return true
         }
@@ -188,19 +118,15 @@ class Game {
     }
     
     func checkWin(player: inout Player) -> Bool {
-       
-     //  let moveToMake = computerLastMove(player: &player)
         for i in 0...7 {
             
+            // Compare numbersPlayed array with winningArrays to see if there's a match
             let check = winningArrays[i].allSatisfy(player.numbersPlayed.contains)
             if check {
                 setNumberOfVictories(player: &player)
                 playerWon = player.playerName
                 player.won = true
-
                 ended = true
-                print("Win!!")
-
                 return true
             }
         }
@@ -220,7 +146,6 @@ class Game {
         
         if totalNumbersPlayed == allNumbersPlayed {
             isTie = true
-            print("Tie!!")
             return true
         }
         return false

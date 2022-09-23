@@ -52,7 +52,6 @@ class ViewController: UIViewController {
     var name2: String = "Pelle2"
     var isComputer: Bool = false
     
-  //  var totalNumbersPlayed: Array<Int> = []
     
     var someOneWon = false
     var isTie = false
@@ -62,10 +61,8 @@ class ViewController: UIViewController {
 
         setPlayerNames()
         isPlayerComputer()
-        game.addToArray()
         updateUI()
         resetInfoBoxes()
-      //  makeRandomMove()
     }
 
     
@@ -73,28 +70,28 @@ class ViewController: UIViewController {
 
     
     func makeComputerMove() {
-        
-        
         if game.player2.isComputer && !someOneWon && !isTie {
             let moveToMakeIfP1HasTwoInARow = game.whatNumberToPlay(player: &game.player1)
             let moveToMakeIfP2HasTwoInARow = game.whatNumberToPlay(player: &game.player2)
             let randomElement = game.getRandomNumber()
             
-            // Check if array 
+            // Computer-move to make if P2 has two in a row (go for the win)
             if game.checkNumberSize(number: moveToMakeIfP2HasTwoInARow) {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) { [self] in
                     switchImage(inputImage: self.numberToImageView(inputNumber: moveToMakeIfP2HasTwoInARow))
                     print("player2 has two in a row\(moveToMakeIfP2HasTwoInARow)")
                 }
                 return
+                
+                // Computer-move to make if P1 has two in a row (obstruct)
             } else if game.checkNumberSize(number: moveToMakeIfP1HasTwoInARow) {
-                // Call performTask after a delay of 1 second
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) { [self] in
                     switchImage(inputImage: self.numberToImageView(inputNumber: moveToMakeIfP1HasTwoInARow))
                     print("player1 has two in a row\(moveToMakeIfP1HasTwoInARow)")
                 }
             } else {
-                // Call performTask after a delay of 1 second
+                
+                // Computer-move random
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) { [self] in
                     switchImage(inputImage: self.numberToImageView(inputNumber: randomElement))
                     print("playing random: \(randomElement)")
@@ -178,24 +175,20 @@ class ViewController: UIViewController {
             inputImage.image = game.player1.image
             inputImage.isUserInteractionEnabled = false // Can't press same img again
             let player1Number = checkNumberPlayed(inputImage: inputImage) // What number did you press?
-            
-            game.player1.numberPlayed = player1Number // Set last played number
+            game.player1.numberPlayed = player1Number // Set last played number player1
             game.player1.numbersPlayed.append(player1Number) // Add played number to array
             
            
             let checkSwitchTurn = game.switchTurn()
-            let checkWin = checkSwitchTurn.0
-            let checkTie = checkSwitchTurn.1
-            
-
+            let checkWin = checkSwitchTurn.0 // Return value for checkWin
+            let checkTie = checkSwitchTurn.1 // Return value for checkTie
             someOneWon = checkWin
             isTie = checkTie
             
-            if someOneWon != true {
+            if someOneWon != true { // Highligt infobox
             imgInfoBox2.image = UIImage(named: "infoboxhighlightp2")
             imgInfoBox.image = UIImage(named: "infobox")
             } 
-            
             
             updateUI()
             makeComputerMove()
@@ -210,8 +203,6 @@ class ViewController: UIViewController {
             
             game.player2.numberPlayed = player2Number // Set last played number
             game.player2.numbersPlayed.append(player2Number) // Add played number to array
-            
-           
             let checkSwitchTurn = game.switchTurn()
             let checkWin = checkSwitchTurn.0 // Return value for checkWin
             let checkTie = checkSwitchTurn.1 // Return value for checkTie
